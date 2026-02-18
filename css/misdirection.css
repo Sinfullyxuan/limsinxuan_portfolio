@@ -1,0 +1,43 @@
+
+:root{
+  --light:  #312b24;
+  --ink:    rgb(226, 219, 214);
+}
+
+ .project-title{
+  color:  var(--ink);
+}
+
+.divider{
+  background:var(--ink);
+}
+
+ .ending-btn{
+  background: var(--ink);
+  color: #000000;
+}
+ .ending-btn:hover{
+  background: #3b1a5a;
+  color: var(--ink);
+}
+ .intro{
+  grid-template-columns: 1.1fr 1fr;
+}
+ .design-intent{
+  grid-template-columns: 1.1fr 1fr;
+}
+
+.planning-title {
+  text-align: center; /* matches your screenshot */
+  margin-bottom: 2rem;
+}
+
+.touch-grid{
+  display: grid;
+  grid-template-columns: 1fr; /* 👈 one column only */
+  gap: 1.5rem;
+}
+
+.walkthrough-video{
+  max-width: 54rem;
+}

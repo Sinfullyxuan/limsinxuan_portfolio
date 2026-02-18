@@ -1,0 +1,718 @@
+:root{
+  --light:  #000000;
+  --ink:    rgb(230, 223, 241);
+}
+
+.project-title{
+  color: rgb(244, 240, 250);
+}
+
+.divider{
+  background: rgb(244, 240, 250);
+}
+
+.ending-btn{
+  background: rgb(230, 223, 241);
+  color: #000000;
+}
+
+.ending-btn:hover{
+  background: #3b1a5a;
+  color: rgb(230, 223, 241);
+}
+
+
+
+#page-misdirection{
+  --light:  #312b24;
+  --ink:    rgb(226, 219, 214);
+}
+
+#page-misdirection .project-title{
+  color:  var(--ink);
+}
+
+#page-misdirection .divider{
+  background:var(--ink);
+}
+
+#page-misdirection .ending-btn{
+  background: var(--ink);
+  color: #000000;
+}
+
+#page-misdirection .ending-btn:hover{
+  background: #3b1a5a;
+  color: var(--ink);
+}
+
+#page-misdirection .intro{
+  grid-template-columns: 1.1fr 1fr;
+}
+
+#page-misdirection .design-intent{
+  grid-template-columns: 1.1fr 1fr;
+}
+
+#page-misdirection .planning-title {
+  text-align: center; /* matches your screenshot */
+  margin-bottom: 2rem;
+}
+
+#page-misdirection .touch-grid{
+  display: grid;
+  grid-template-columns: 1fr; /* 👈 one column only */
+  gap: 1.5rem;
+}
+@media (max-width: 1024px){
+
+  /* 3-column layout */
+  #page-misdirection .planning-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(2rem, 1fr));
+    gap: 3rem;
+  }
+
+  #page-misdirection .planning-thumb {
+    aspect-ratio: 4 / 3;  /* optional: nicer proportion on tablet */
+  }
+
+  #page-misdirection .planning-thumb img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* ✅ shows entire image */
+  display: block;
+}
+
+
+}
+
+@media (max-width: 768px){
+/* 3-column layout */
+#page-misdirection .planning-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5rem;
+  align-items: start;
+  margin: 2rem;
+}
+
+/* each block */
+#page-misdirection .planning-card {
+  text-align: center; /* makes it look like your ref */
+}
+
+/* image placeholder box */
+#page-misdirection .planning-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;   /* square like the screenshot */
+  overflow: contain;
+  margin: 0 auto 1.2rem;
+}
+
+}
+
+@media (max-width: 700px){
+#page-misdirection .walkthrough-video{
+  max-width: 22rem;
+}
+
+#page-misdirection .project-title{
+    font-size: 2.3rem;
+    margin-bottom: 1rem;
+  }
+
+  #page-misdirection h5.project-title{
+  font-size: 1.5rem;        /* 👈 small */
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin-bottom: 0rem;  /* tighten gap above h1 */
+}
+
+#page-misdirection .intro{
+  grid-template-columns: 1fr;
+}
+
+#page-misdirection .design-intent{
+  grid-template-columns: 1fr;
+}
+
+#page-misdirection .touchpoints{ padding: 2rem 1.25rem; }
+
+#page-misdirection .touch-grid{
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 1rem;
+}
+
+.touch-img{
+margin-bottom: 1rem;
+}
+
+#page-misdirection.walkthrough{ padding: 2.5rem 0 3rem; }
+}
+
+#page-core{
+  --light:  #f7e7d7;
+  --ink:    rgb(105, 71, 49);
+}
+
+#page-core .ending-btn{
+  background: rgb(105, 71, 49);
+  color: #f7e7d7;
+}
+
+#page-core .ending-btn:hover{
+  background: #3b1a5a;
+  color: rgb(230, 223, 241);
+}
+
+
+#page-core .project-title{
+  color:  var(--ink);
+}
+
+#page-core .divider{
+  background:var(--ink);
+}
+
+#page-core h5.project-title{
+  font-size: 1.5rem;        /* 👈 small */
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin-bottom: 2rem;
+  margin-top: -2rem;
+}
+
+#page-core .intro{
+  grid-template-columns: 1.1fr 1fr;
+}
+
+#page-core .design-intent{
+  grid-template-columns: 2fr 1fr;
+}
+
+/* 2-column layout */
+#page-core .planning-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5rem;
+  align-items: start;
+}
+
+/* ✅ make this row take the full grid width */
+#page-core .image-row {
+  grid-column: 1 / -1;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+#page-core .image-row img {
+  width: 100%;
+  height: auto;       /* ✅ no crop */
+  display: block;
+  margin-top: 2rem;
+}
+
+@media (max-width: 1024px){
+
+  #page-core .case-text h3, .location-title, .planning-title, .touch-title{
+  font-size: 1rem;
+}
+
+ #page-core .case-text, .location-caption {
+  font-size: 0.6rem;
+ }
+}
+
+
+@media (max-width: 768px){
+
+#page-core .intro, .design-intent{
+ grid-template-columns: 1fr;
+}
+
+#page-core .design-intent{
+ grid-template-columns: 1fr;
+}
+
+}
+
+#page-monsters{
+  --light:  #0a0a0a;
+  --ink:    rgb(241, 241, 241);
+}
+
+#page-monsters .ending-btn{
+  background: var(--ink);
+  color: var(--light);
+}
+
+#page-monsters .ending-btn:hover{
+  background: #3b1a5a;
+  color: rgb(230, 223, 241);
+}
+
+#page-monsters .project-title{
+  color:  var(--ink);
+}
+
+#page-monsters .divider{
+  background:var(--ink);
+}
+
+
+#page-monsters h5.project-title{
+  margin-top: -2rem;
+  margin-bottom: 1rem;  /* tighten gap above h1 */
+}
+
+#page-monsters .intro{
+  grid-template-columns: 1fr 1fr;
+}
+
+#page-monsters .planning-card-text {
+  margin: 0 0 1rem;
+  font-family: "Noto Sans", system-ui, sans-serif;
+  font-size: 0.65rem;
+  line-height: 1.5;
+}
+
+#page-monsters .planning-title{
+  text-align: center;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.planning-cta {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.planning-btn {
+  display: inline-block;
+  padding: 0.9rem 2.2rem;
+  border: 1px solid white;
+  text-decoration: none;
+  font-family: "Cinzel", serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.planning-btn:hover {
+  background: white;
+  color: black;
+}
+
+.planning-btn:hover {
+  background: #bc13fe;
+  color: black;
+  box-shadow: 
+    0 0 8px #bc13fe,
+    0 0 20px #bc13fe,
+    0 0 40px #bc13fe;
+
+  
+}
+
+@media (max-width: 768px){
+
+#page-monsters .intro{
+ grid-template-columns: 1fr;
+}
+
+}
+
+#page-popup{
+  --light:  #ffffff;
+  --ink:    rgb(49, 34, 34);
+}
+
+#page-popup .project-title{
+  color:  var(--ink);
+}
+
+#page-popup .divider{
+  background:var(--ink);
+}
+
+#page-popup .ending-btn{
+  background: var(--ink);
+  color: var(--light);
+}
+
+#page-popup .ending-btn:hover{
+  background: #3b1a5a;
+  color: rgb(230, 223, 241);
+}
+
+#page-popup .design-intent{
+  grid-template-columns: 1.2fr 1fr;
+}
+
+#page-popup .planning-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5rem;
+  align-items: start;
+}
+
+/* ✅ make this row take the full grid width */
+#page-popup .image-row {
+  grid-column: 1 / -1;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+#page-popup .image-row img {
+  width: 100%;
+  height: auto;       /* ✅ no crop */
+  display: block;
+  margin-top: 2rem;
+}
+
+@media (max-width: 1024px){
+
+#page-popup .carousel {
+  max-width: 55rem;
+
+}
+
+#page-popup .planning-title {
+  font-size: 1.25rem;
+}
+
+}
+
+@media (max-width: 768px){
+
+#page-popup .research-section {
+  padding: 2rem 2rem;
+}
+
+#page-popup .design-intent{
+  grid-template-columns: 1fr;
+  margin-top: 2rem;
+}
+
+}
+
+#page-ecowarriors{
+  --light:  #eaf0d7;
+  --ink:    rgb(47, 77, 20);
+}
+
+#page-ecowarriors .project-title{
+  color:  var(--ink);
+}
+
+#page-ecowarriors .divider{
+  background:var(--ink);
+}
+
+#page-ecowarriors .ending-btn{
+  background: var(--ink);
+  color: var(--light);
+}
+
+#page-ecowarriors .ending-btn:hover{
+  background: #3b1a5a;
+  color: rgb(230, 223, 241);
+}
+
+#page-ecowarriors .intro{
+  grid-template-columns: 1fr 1.3fr;
+}
+
+
+
+#page-ecowarriors .brand {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;  /* 👈 image wider */
+  gap: 2rem;
+  align-items: center;
+  padding: 6rem 2rem;
+}
+
+#page-ecowarriors .brand-intent {
+  flex: 1;
+}
+
+#page-ecowarriors .brand-intent img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#page-ecowarriors .case-text {
+  flex: 1;
+}
+
+/* =========================
+   TOUCHPOINTS (IMAGES ONLY)
+   ========================= */
+#page-ecowarriors .touchpoints2{
+  max-width: 65rem;
+  margin: 0 auto;
+  padding: 3rem;
+  text-align: center;
+}
+
+#page-ecowarriors .touchpoints2 > p{
+  font-size: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+#page-ecowarriors .touch2-title{
+  font-family: "Cinzel", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  text-align: center;
+  margin: 0 0 0.75rem 0;
+}
+
+#page-ecowarriors .touch2-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+}
+
+#page-ecowarriors .touch2-img{
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+
+/* SECTION */
+#page-ecowarriors .walkthrough {
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+#page-ecowarriors .walkthrough-title {
+  margin-bottom: 2rem;
+}
+
+/* WRAPPER — override base 16:9 + hidden */
+#page-ecowarriors .walkthrough-video {
+  width: min(90vw, 420px);
+  margin: 0 auto;
+
+  aspect-ratio: 9 / 16;      /* ✅ override 16/9 */
+  overflow: visible;         /* ✅ override hidden */
+  position: relative;
+}
+
+/* VIDEO — override height:100% + cover */
+#page-ecowarriors .walkthrough-video video {
+  width: 100%;
+  height: auto;              /* ✅ fill wrapper */
+  display: block;
+
+  object-fit: contain;       /* ✅ no crop */
+  border: 6px solid black;   /* 👈 black border */
+  border-radius: 20px;
+}
+
+#page-moomoo{
+  --light:  #c2caaa;
+  --ink:    rgb(47, 68, 30);
+}
+
+#page-moomoo .ending-btn{
+  background: var(--ink);
+  color: var(--light);
+}
+
+#page-moomoo .ending-btn:hover{
+  background: #3b1a5a;
+  color: rgb(230, 223, 241);
+}
+
+#page-moomoo .project-title{
+  color:  var(--ink);
+}
+
+#page-moomoo .divider{
+  background:var(--ink);
+}
+
+
+#page-moomoo h5.project-title{
+  margin-top: -2rem;
+  margin-bottom: 1rem;  /* tighten gap above h1 */
+}
+
+#page-moomoo .intro{
+  grid-template-columns: 1fr;
+  text-align: center;
+  padding: 0rem;
+  max-width: 55rem;
+
+}
+
+#page-moomoo .intro .case-text {
+  text-align: center;
+}
+
+#page-moomoo .touch-grid{
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 1rem;
+}
+
+
+#page-remembear{
+  --light:  #ecdfcd;
+  --ink:    rgb(110, 42, 42);
+}
+
+#page-remembear .ending-btn{
+  background: var(--ink);
+  color: var(--light);
+}
+
+#page-remembear .ending-btn:hover{
+  background: #3b1a5a;
+  color: rgb(230, 223, 241);
+}
+
+#page-remembear .project-title{
+  color:  var(--ink);
+}
+
+#page-remembear .divider{
+  background:var(--ink);
+}
+
+/* Outer spacing */
+.quote-banner{
+  padding: clamp(3rem, 8vh, 6rem) 1.5rem;
+}
+
+/* The card */
+.quote-card{
+  max-width: 55rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 1vw, 3.5rem);
+}
+
+/* The big quote */
+.quote-text{
+  margin: 0;
+  text-align: center;
+  font-family: "Cinzel", "Times New Roman", serif; /* swap to your preferred font */
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  font-size: clamp(1.4rem, 2.6vw, 2.3rem);
+}
+
+/* The credit (bottom-right) */
+.quote-credit{
+  margin-top: 1.8rem;
+  text-align: right;
+  font-family: "Cinzel", "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+}
+
+.quote-text .u{
+  display: inline-block;
+  padding-bottom: 0.0001rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+#page-remembear .planning-title {
+  text-align: center; /* matches your screenshot */
+  margin-bottom: 2rem;
+}
+
+
+#page-remembear .location-grid{
+  display: grid;
+  grid-template-columns: 3fr 1fr; /* first wider */
+  gap: 1.5rem;
+  max-width: 55rem;
+  margin: 0 auto;
+}
+
+#page-remembear .location-title{
+  text-align: center;
+  margin-top: 5rem;
+  font-size: 1.4rem;
+}
+
+#page-remembear .location-section{
+  padding: 3rem;
+  margin-bottom: 3rem;
+  max-width: 5rem;
+}
+
+#page-remembear .touchpoints{
+  margin-top: 3rem;
+}
+
+#page-remembear .touch-grid{
+gap: 3rem;
+margin-top: 3rem;
+
+}
+
+#page-font{
+  --light:  #ece7e1;
+  --ink:    rgb(116, 11, 11);
+}
+
+#page-font .ending-btn{
+  background: var(--ink);
+  color: var(--light);
+}
+
+#page-font .ending-btn:hover{
+  background: #3b1a5a;
+  color: rgb(230, 223, 241);
+}
+
+#page-font .project-title{
+  color:  rgb(116, 11, 11);
+}
+
+#page-font .divider{
+  background:var(--ink);
+}
+
+
+#page-font h5.project-title{
+  margin-top: -2rem;
+  margin-bottom: 1rem;  /* tighten gap above h1 */
+}
+
+#page-font .intro{
+  grid-template-columns: 1fr;
+  text-align: center;
+  padding: 0rem;
+  max-width: 55rem;
+
+}
+
+#page-font .intro .case-text {
+  text-align: center;
+}
+
+#page-font .touch-grid{
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 1rem;
+}

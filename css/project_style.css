@@ -1,0 +1,997 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+html {
+  font-size: 150%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root{
+  --purple: #2a1141;
+  --light:  #e7e3ee;
+  --ink:    #1b1026;
+}
+
+body{
+  background: var(--light);
+  color: var(--ink);
+  font-family: "Noto Sans", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+
+/* Controls the “poster” width like your screenshot */
+.page{
+  max-width: 65rem;     /* change if you want wider */
+  margin: 0 auto;
+  padding: 0 3rem;   /* 👈 always keep side spacing */
+}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  background: var(--purple);
+  color: white;
+  
+}
+
+.topbar-inner{
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  padding: 1.2rem 1.5rem;
+  padding-bottom: 1.5rem;
+  min-height: 9rem
+}
+
+.topbar-logo {
+  height: 4rem;          /* adjust until it feels right */
+  width: auto;
+  display: block;
+  opacity: 1;
+  margin-bottom: -0.5rem;
+}
+
+.topbar-right{
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+  justify-self: end;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* ---------- Hero image ---------- */
+.hero {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.hero img{
+  width: 100%; 
+  position: relative;
+  overflow: hidden
+}
+
+/* ---------- Title block ---------- */
+.title-block{
+  background: var(--light);
+  text-align: center;
+  padding: 2.2rem 1.5rem 1.4rem;
+}
+
+.project-title{
+  font-family: "Cinzel", serif;
+  color: var(--purple);
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  
+  margin-bottom: 1.6rem;
+}
+
+.meta-row{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 1rem;
+  max-width: 70rem;
+  margin: 0 auto 0.75rem;
+}
+
+.meta-left{
+  text-align: left;
+}
+
+.meta-big{
+  font-family: "Cinzel", serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.meta-right{
+  text-align: right;
+  font-family: "Cinzel", serif;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.meta-stack span{
+  display: block;
+  line-height: 1.25;
+}
+
+.divider{
+  height: 2px;
+  background: #2c1a3d;
+  max-width: 70rem;
+  margin: 0 auto;
+  opacity: 0.85;
+}
+
+
+/*---- intro and design intent------*/
+/* wrapper spacing */
+.intro,
+.design-intent {
+  max-width: 65rem;
+  margin: 0 auto 1rem;
+  padding: 3rem;
+
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.intro {
+  padding-top: 3rem;
+}
+
+/* reverse layout (text left, image right) */
+.design-intent {
+  grid-template-columns: 1fr 1.6fr;
+  padding-top: 0rem;
+}
+
+/* image containers */
+.intro-intent,
+.intent-img {
+  width: 100%;
+}
+
+/* only the IMAGE gets the fixed box */
+.intro-intent img,
+.intent-img img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.has-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* space between image and caption */
+}
+
+.has-caption figcaption {
+  font-family: "Noto Sans", system-ui, sans-serif;
+  font-size: 0.6rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  text-align: left;
+  opacity: 0.8;
+}
+
+/* text styling */
+.case-text {
+  font-family: "Noto Sans", system-ui, sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: #1b1026;
+}
+
+.case-text p {
+  margin: 0 0 0.6rem 0;
+}
+
+.case-text p:last-child {
+  margin-bottom: 0;
+}
+
+.case-text h3 {
+  font-family: "Cinzel", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.75rem 0;
+}
+
+/* subtle vertical offset like your reference */
+.design-intent .case-text {
+  margin-top: 1rem;
+}
+
+/* =========================
+   PLANNING SECTION
+   ========================= */
+.planning{
+  max-width: 65rem;
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+.planning-title{
+  font-family: "Cinzel", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.75rem 0;
+}
+
+/* 3 columns */
+.planning-cols{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.planning-col h4{
+  font-family: "Noto Sans", system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin: 0 0 0.6rem 0;
+  margin-top: 0.8rem;
+}
+
+.planning-col ul{
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+/* wide images */
+.planning-wide{
+  width: 100%;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.planning-wide img{
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  padding-top: 2rem;
+}
+
+/* caption styling */
+.image-block{
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+}
+
+.image-block figcaption{
+  font-family: "Noto Sans", system-ui, sans-serif;
+  font-size: 0.6rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
+}
+
+/* bottom: 2 tall + right stack */
+.planning-bottom{
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.8fr;
+  gap: 1rem;
+  margin-top: 3rem;
+  align-items: stretch;
+}
+
+.planning-bottom .tall{
+  width: 100%;
+  height: 100%;         /* adjust: try 18–26rem */
+  object-fit: cover;
+  display: block;
+}
+
+.side-stack{
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.side-title{
+  font-family: "Cinzel", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.side-caption{
+  font-family: "Cinzel", serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.75rem 0;
+  text-align: right;
+}
+
+.side-stack .small{
+  width: 100%;
+  height: 10rem;   
+  object-fit: cover;
+  display: block;
+}
+
+.image-block{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;          /* space between image and caption */
+}
+
+.image-block img{
+  width: 100%;
+  display: block;
+}
+
+.image-block figcaption{
+  font-family: "Noto Sans", system-ui, sans-serif;
+  font-size: 0.6rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
+}
+
+.touchpoints{
+  max-width: 65rem;
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+.touch-title{
+  font-family: "Cinzel", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  text-align: center;
+  margin-bottom: 1rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.touch-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns like your mock */
+  gap: 1.5rem;
+}
+
+/* =========================
+   CAROUSEL TILE
+   ========================= */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  user-select: none;
+  touch-action: pan-y; /* allow vertical scroll; we handle horizontal swipe */
+}
+
+/* the moving strip */
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transform: translateX(0%);
+  transition: transform 460ms ease; /* smooth slide */
+}
+
+/* each slide takes full tile width */
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+}
+
+/* the images fill the slide */
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* use contain if these are diagrams */
+  display: block;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 1;
+  transition: opacity 380ms ease;
+}
+
+/* Controls hidden by default */
+.carousel-btn,
+.carousel-caption {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: 200ms ease;
+  pointer-events: none; /* prevent clicks when hidden */
+}
+
+/* Show UI on hover (desktop) and focus-within (keyboard/tap) */
+.carousel:hover .carousel-btn,
+.carousel:hover .carousel-caption,
+.carousel:focus-within .carousel-btn,
+.carousel:focus-within .carousel-caption,
+.carousel.is-active .carousel-btn,
+.carousel.is-active .carousel-caption {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Arrows */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.carousel-btn svg {
+  opacity: 0.95;
+}
+
+.carousel-btn:hover svg {
+  transform: scale(1.05);
+  transition: transform 150ms ease;
+}
+
+.carousel-btn.prev { left: 14px; }
+.carousel-btn.next { right: 14px; }
+
+.carousel-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Caption bar */
+.carousel-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+
+  padding: 0.9rem 1rem;
+  color: #fff;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+}
+
+.carousel-caption h4 {
+  margin: 0;
+  font-family: "Cinzel", serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+.carousel-count {
+  font-family: "Noto Sans", system-ui, sans-serif;
+  font-size: 0.6rem;
+  opacity: 0.9;
+}
+
+/* =========================
+   TOUCH TILE (GREY BOX)
+   ========================= */
+
+.touch-tile {
+  position: relative;
+  overflow: hidden;
+  background: #777;      /* fallback grey */
+}
+
+.touch-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* overlay hidden by default */
+.touch-overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 0.9rem;
+  color: #fff;
+
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0)
+  );
+
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+/* text */
+.touch-overlay h4 {
+  font-family: "Cinzel", serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.25rem 0;
+}
+
+.touch-overlay p {
+  font-family: "Noto Sans", system-ui, sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.touch-overlay p + p {
+  margin-top: 1rem;  /* 👈 space before "Activities:" */
+}
+
+.overlay-list{
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+.overlay-list li{
+  margin: 0.15rem 0;
+}
+
+/* reveal on hover */
+.touch-tile:hover .touch-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Tap-to-toggle active state (mobile & tablet) */
+.touch-tile.is-active .touch-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Unified tap-to-toggle: overlay + carousel UI */
+.touch-tile.is-active .carousel-btn,
+.touch-tile.is-active .carousel-caption {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* =========================
+   WALKTHROUGH SECTION
+   ========================= */
+.walkthrough{
+  background: var(--light);
+  padding: 3rem 0 4rem;
+}
+
+.walkthrough-title{
+  font-family: "Cinzel", serif;
+  color: var(--ink);
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  text-align: center;
+  margin: 0 0 0.75rem 0;
+}
+
+/* Responsive video box */
+.walkthrough-video{
+  width: 100%;
+  max-width: 65rem;        /* match your poster width vibe */
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;    /* keeps the same shape */
+  overflow: hidden;
+  position: relative;
+}
+
+/* Make iframe/video fill the box */
+.walkthrough-video iframe,
+.walkthrough-video video{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  object-fit: cover;
+}
+
+/* Optional placeholder text (if you use the placeholder div) */
+.video-placeholder{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: "Cinzel", serif;
+  color: #fff;
+  letter-spacing: 0.06em;
+}
+
+/* =========================
+   CASE ENDING
+   ========================= */
+.case-ending{
+  background: var(--light);
+
+}
+
+/* Buttons wrapper */
+.ending-actions{
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+  flex-wrap: wrap; /* mobile safety */
+}
+
+/* Pill buttons */
+.ending-btn{
+  font-family: "Cinzel", serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  background: #2a1141;
+  color: #fff;
+  text-decoration: none;
+
+  transition: transform 200ms ease, background 200ms ease;
+}
+
+.ending-btn:hover{
+  background: #3b1a5a;
+  transform: translateY(-1px);
+}
+
+/* Bottom colour bar */
+.ending-bar{
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  height: 3rem;
+  background: #2a1141;
+
+    display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ending-bar-text{
+  font-family: "Cinzel", serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.85);
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+/* =========================
+   TABLET (<= 1024px)
+   ========================= */
+@media (max-width: 1024px) {
+
+  html { font-size: 115%; }
+
+  .page{
+    padding: 0 1.5rem; /* prevent edge touching */
+  }
+
+  .topbar-inner{
+    min-height: 8rem;
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .topbar-logo{
+    height: 3.2rem;
+    margin-bottom: -0.35rem;
+  }
+
+  .project-title{
+    font-size: clamp(3.5rem, 7vw, 6rem); /* instead of fixed 8rem */
+  }
+
+  .meta-row,
+  .divider{
+    max-width: 60rem;
+  }
+
+  /* Intro + design intent: keep 2 columns but tighter */
+  .intro,
+  .design-intent{
+    max-width: 55rem;
+    gap: 1.75rem;
+  }
+
+  .case-text{
+    font-size: 0.65rem;
+  }
+
+  .case-text h3{
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .case-text p {
+    margin: 0;
+    line-height: 1.45;        /* tighten overall paragraph feel */
+  }
+
+  /* spacing only BETWEEN paragraphs */
+  .case-text p + p {
+    margin-top: 0.rem;       /* adjust: 0.3–0.5rem */
+  }
+  
+  .planning{ 
+    max-width: 55rem;
+  }
+
+ .walkthrough-video{
+    max-width: 55rem;
+  }
+
+
+}
+
+
+/* =========================
+   TOUCHPOINTS — MOBILE
+   ========================= */
+@media (max-width: 768px) {
+
+  .touchpoints{
+    padding: 2rem 1.25rem;   /* less padding */
+  }
+
+  .touch-grid{
+    grid-template-columns: 1fr; /* ✅ stack into 1 column */
+    gap: 1.25rem;
+  }
+
+  /* Make sure carousel actually fills the tile */
+  .carousel{
+    height: 100%;
+  }
+
+  /* On mobile: show arrows + caption by default (no hover) */
+  .carousel-btn,
+  .carousel-caption{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Slightly bigger tap targets */
+  .carousel-btn{
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .carousel-btn.prev{ left: 0.75rem; }
+  .carousel-btn.next{ right: 0.75rem; }
+
+  .carousel-caption{
+    padding: 0.8rem 0.9rem;
+  }
+
+  .carousel-caption h4{
+    font-size: 0.85rem;
+  }
+
+  .carousel-count{
+    font-size: 0.65rem;
+  }
+
+  /* Overlay also: show on tap? (optional)
+     If you want overlays to appear without hover, uncomment:
+  */
+  
+  .touch-overlay{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+    .walkthrough{
+    padding: 2.5rem 0 3rem;
+  }
+ 
+}
+
+
+
+/* =========================
+   MOBILE (<= 700px)
+   ========================= */
+@media (max-width: 700px) {
+
+  html { font-size: 100%; }
+
+  .page{
+    padding: 0 1rem;
+  }
+
+  /* Topbar */
+  .topbar-inner{
+    display: flex;              /* switch from grid */
+    justify-content: flex-start;  /* align everything to the right */
+    align-items: flex-end;      /* align to bottom of bar */
+    gap: 0.75rem;               /* space between logo and text */
+
+    min-height: 6.5rem;
+    padding: 0.9rem 1rem 1rem;
+  }
+
+  /* hide the empty spacer column if you have it */
+  .topbar-left{
+    display: none;
+  }
+
+  .topbar-center{
+    margin: 0; /* remove any centering behavior */
+  }
+
+  .topbar-logo{
+    height: 2.5rem;             /* adjust */
+  }
+
+  .topbar-right{
+    justify-self: unset;        /* grid-only, safe to unset */
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    opacity: 0.9;
+    text-align: left;
+  }
+
+  /* Hero image */
+  .hero img{
+    width: 100%;
+    height: 15vh;       /* nicer on mobile than 100vh */
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Title block */
+  .title-block{
+    padding: 1.6rem 1rem 1.2rem;
+  }
+
+  .project-title{
+    font-size: clamp(3rem, 12vw, 4.2rem);
+    margin-bottom: 1rem;
+  }
+
+  .meta-row{
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 0.75rem; 
+    font-size: 0.8rem;
+  }
+
+  .meta-left,
+  .meta-right{
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+
+  /* Intro + Design intent stack */
+  .intro,
+  .design-intent{
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .intro{
+    padding-top: 2rem;
+  }
+
+  .design-intent{
+    grid-template-columns: 1fr;
+  }
+
+    /* Move image ABOVE text */
+  .design-intent .intent-img {
+    order: 1;
+  }
+
+  
+  .design-intent .case-text {
+    order: 2;
+  }
+
+  /* Remove desktop offset */
+  .design-intent .case-text{
+    margin-top: 0;
+  }
+
+  /* Captions */
+  .has-caption figcaption{
+    font-size: 0.5rem;
+  }
+
+  .planning{ padding: rem 1rem; }
+
+  .planning-cols{
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .planning-bottom{
+    grid-template-columns: 1fr;
+  }
+
+  .planning-bottom .tall{
+    height: 18rem;
+  }
+
+  .side-stack .small{
+    height: 12rem;
+  }
+
+  .ending-actions{
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .ending-btn{
+    font-size: 0.7rem;
+    padding: 0.7rem 1.4rem;
+  }
+
+  .ending-bar{
+    height: 2.2rem;
+  }
+
+  .ending-bar-text{
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+@media (hover: none) {
+  .touch-tile:hover .touch-overlay,
+  .touch-tile:hover .carousel-btn,
+  .touch-tile:hover .carousel-caption {
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+  }
+}

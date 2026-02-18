@@ -1,0 +1,571 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Base scale (your “designed at 150%” fix) */
+html { font-size: 150%; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root{
+  --purple: #2a1141;
+  --light:  #e7e3ee;
+  --ink:    #1b1026;
+}
+
+body{
+  background: var(--light);
+  color: var(--ink);
+  font-family: "Noto Sans", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Poster width container */
+.page{
+  max-width: 65rem;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+/* =========================
+   TOPBAR
+   ========================= */
+.topbar{
+  background: var(--purple);
+  color: white;
+}
+
+.topbar-inner{
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  padding: 1.2rem 1.5rem;
+  padding-bottom: 1.5rem;
+  min-height: 9rem;
+}
+
+.topbar-logo{
+  height: 4rem;
+  width: auto;
+  display: block;
+  opacity: 1;
+  margin-bottom: -0.5rem;
+}
+
+.topbar-right{
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+  justify-self: end;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* =========================
+   HERO
+   ========================= */
+.hero{ margin: 0; padding: 0; line-height: 0; }
+
+.hero img{
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+/* =========================
+   TITLE BLOCK
+   ========================= */
+.title-block{
+  background: var(--light);
+  text-align: center;
+  padding: 2.2rem 1.5rem 1.4rem;
+}
+
+.project-title{
+  font-family: "Cinzel", serif;
+  color: var(--purple);
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  margin-bottom: 1.6rem;
+}
+
+.meta-row{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 1rem;
+  max-width: 70rem;
+  margin: 0 auto 0.75rem;
+}
+
+.meta-left{ text-align: left; }
+
+.meta-big{
+  font-family: "Cinzel", serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.meta-right{
+  text-align: right;
+  font-family: "Cinzel", serif;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.meta-stack span{ display: block; line-height: 1.25; }
+
+.divider{
+  height: 2px;
+  background: #2c1a3d;
+  max-width: 70rem;
+  margin: 0 auto;
+  opacity: 0.85;
+}
+
+/* =========================
+   INTRO + DESIGN INTENT
+   ========================= */
+.intro,
+.design-intent{
+  max-width: 65rem;
+  margin: 0 auto 1rem;
+  padding: 3rem;
+
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.intro{ padding-top: 3rem; }
+
+.design-intent{
+  grid-template-columns: 1fr 1.6fr;
+  padding-top: 0;
+}
+
+.intro-intent,
+.intent-img{ width: 100%; }
+
+.intro-intent img,
+.intent-img img{
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.has-caption{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.has-caption figcaption{
+  font-family: "Noto Sans", system-ui, sans-serif;
+  font-size: 0.6rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  text-align: left;
+  opacity: 0.8;
+}
+
+.case-text{
+  font-family: "Noto Sans", system-ui, sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.case-text p{ margin: 0 0 0.6rem 0; }
+.case-text p:last-child{ margin-bottom: 0; }
+
+.case-text h3{
+  font-family: "Cinzel", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.75rem 0;
+}
+
+.design-intent .case-text{ margin-top: 1rem; }
+
+
+/* =========================
+   PLANNING — SINGLE IMAGE (USER JOURNEY MAP)
+   ========================= */
+
+/* Section spacing */
+.planning{
+  max-width: 65rem;
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+/* Title: LEFT aligned */
+.planning-title{
+  text-align: left;
+  font-family: "Cinzel", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  margin: 0 0 1.25rem 0;
+}
+
+/* Center the image block */
+.planning-wide{
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* 👈 centers image + caption */
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Image itself */
+.planning-wide img{
+  width: 100%;
+  max-width: 58rem;      /* 👈 slightly narrower than page */
+  display: block;
+  object-fit: contain;   /* important for diagrams */
+}
+
+/* Caption */
+.planning-wide figcaption{
+  margin-top: 0.6rem;
+  font-family: "Noto Sans", system-ui, sans-serif;
+  font-size: 0.6rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
+  text-align: center;    /* centered caption under image */
+}
+
+
+/* =========================
+   TOUCHPOINTS (IMAGES ONLY)
+   ========================= */
+.touchpoints{
+  max-width: 65rem;
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+.touch-title{
+  font-family: "Cinzel", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  text-align: center;
+  margin: 0 0 0.75rem 0;
+}
+
+.touch-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.touch-img{
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* Optional caption under each touch image */
+.touch-cap{
+  font-family: "Noto Sans", system-ui, sans-serif;
+  font-size: 0.6rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
+  margin-top: 0.4rem;
+}
+
+/* =========================
+   WALKTHROUGH
+   ========================= */
+.walkthrough{
+  background: var(--light);
+  padding: 3rem 0 4rem;
+}
+
+.walkthrough-title{
+  font-family: "Cinzel", serif;
+  color: var(--ink);
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 0.75rem 0;
+}
+
+.walkthrough-video{
+  width: 100%;
+  max-width: 65rem;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  position: relative;
+}
+
+.walkthrough-video iframe,
+.walkthrough-video video{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  object-fit: cover;
+}
+
+/* =========================
+   CASE ENDING
+   ========================= */
+.case-ending{
+  background: var(--light);
+}
+
+.ending-actions{
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+  flex-wrap: wrap;
+}
+
+.ending-btn{
+  font-family: "Cinzel", serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  background: var(--purple);
+  color: #fff;
+  text-decoration: none;
+
+  transition: transform 200ms ease, background 200ms ease;
+}
+
+.ending-btn:hover{
+  background: #3b1a5a;
+  transform: translateY(-1px);
+}
+
+.ending-bar{
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  height: 3rem;
+  background: var(--purple);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ending-bar-text{
+  font-family: "Cinzel", serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.85);
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+/* =========================
+   TABLET (<= 1024px)
+   ========================= */
+@media (max-width: 1024px){
+  html{ font-size: 115%; }
+
+  .page{ padding: 0 1.5rem; }
+
+  .topbar-inner{
+    min-height: 8rem;
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .topbar-logo{
+    height: 3.2rem;
+    margin-bottom: -0.35rem;
+  }
+
+  .project-title{
+    font-size: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  .intro,
+  .design-intent{
+    max-width: 55rem;
+    gap: 1.75rem;
+  }
+
+  .case-text{ font-size: 0.65rem; }
+
+  .case-text h3{
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .walkthrough-video{ max-width: 55rem; }
+}
+
+/* =========================
+   MOBILE (<= 768px)
+   ========================= */
+@media (max-width: 768px){
+  .touchpoints{ padding: 2rem 1.25rem; }
+
+  .touch-grid{
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .walkthrough{ padding: 2.5rem 0 3rem; }
+}
+
+/* =========================
+   MOBILE (<= 700px)
+   ========================= */
+@media (max-width: 700px){
+  html{ font-size: 100%; }
+
+  .page{ padding: 0 1rem; }
+
+  .topbar-inner{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 0.75rem;
+
+    min-height: 6.5rem;
+    padding: 0.9rem 1rem 1rem;
+  }
+
+  .topbar-left{ display: none; }
+
+  .topbar-logo{ height: 2.5rem; }
+
+  .topbar-right{
+    justify-self: unset;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-align: left;
+  }
+
+  .hero img{
+    height: 15vh;
+    object-fit: cover;
+  }
+
+  .title-block{ padding: 1.6rem 1rem 1.2rem; }
+
+  .project-title{
+    font-size: clamp(3rem, 12vw, 4.2rem);
+    margin-bottom: 1rem;
+  }
+
+  .meta-row{
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .meta-left,
+  .meta-right{
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .intro,
+  .design-intent{
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .intro{ padding-top: 2rem; }
+
+  .design-intent .intent-img{ order: 1; }
+  .design-intent .case-text{ order: 2; margin-top: 0; }
+
+  .has-caption figcaption{ font-size: 0.5rem; }
+
+  .planning{
+    padding: 2rem 1rem;
+  }
+
+  .planning-title{
+    font-size: 1.2rem;
+  }
+
+  .planning-wide img{
+    max-width: 100%;
+  }
+
+  .ending-actions{
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .ending-btn{
+    font-size: 0.7rem;
+    padding: 0.7rem 1.4rem;
+  }
+
+  .ending-bar{ height: 2.2rem; }
+
+  .ending-bar-text{
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+#page-misdirection{
+  --light:  #312b24;
+  --ink:    rgb(226, 219, 214);
+}
+
+#page-misdirection .project-title{
+  color:  var(--ink);
+}
+
+#page-misdirection .divider{
+  background:var(--ink);
+}
+
+#page-misdirection .ending-btn{
+  background: var(--ink);
+  color: #000000;
+}
+
+#page-misdirection .ending-btn:hover{
+  background: #3b1a5a;
+  color: var(--ink);
+}
+
+#page-misdirection .intro{
+  grid-template-columns: 1.1fr 1fr;
+}
+
+#page-misdirection .design-intent{
+  grid-template-columns: 1.1fr 1fr;
+}
+
+#page-misdirection .planning-title {
+  text-align: center; /* matches your screenshot */
+  margin-bottom: 2rem;
+}
+
+#page-misdirection .touch-grid{
+  display: grid;
+  grid-template-columns: 1fr; /* 👈 one column only */
+  gap: 1.5rem;
+}
+
+#page-misdirection .walkthrough-video{
+  max-width: 54rem;
+}
