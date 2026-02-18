@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/main_style_neat.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="homepage-container">
+      <!-- Fixed Header/Navigation -->
+      <header class="fixed-header">
+        <nav>
+          <!-- Hidden checkbox -->
+          <input type="checkbox" id="nav-toggle" class="nav-toggle">
+
+          <!-- Hamburger label -->
+          <label for="nav-toggle" class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+          </label>
+
+          <ul class="nav-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+      
+      <!-- Main Content Sections -->
+      <main>
+        <section id="home" class="full-height-section">
+          <!-- Container for p5.js sketch -->
+          <div id="p5-sketch"></div>
+        
+          <!-- Your content that appears over the sketch -->
+          <div class="hero-content">
+            <video class="hero-video" autoplay muted loop playsinline>
+              <source src="images/IMG_0104.webm" type="video/webm">
+              Your browser does not support the video tag.
+            </video>
+            <h1 class="hero-title">Lim Sin Xuan</h1>
+            <p class="hero-subtext">Design Portfolio</p>
+          </div>
+        </section>
+        
+        <section id="about" class="full-height-section">
+          <!-- New p5.js sketch container -->
+          <div id="about-sketch"></div>
+          
+          <!-- About content (will appear above the sketch) -->
+          <div class="about-content">
+            <div class="move-up">
+              <h3>Interior Design</h3>
+              <p>Turning concept into physical interiors. With a passion for thoughtful and customisable design, I craft spaces that reflect personality, function and emotion. Whether it's a cozy home or a vibrant commercial space, I believe every interior tells a story.</p>
+            </div>
+          
+            <img src="images/me.jpg" alt="my Image" class="about-me-image move-up" />
+          
+            <div class="move-up">
+              <h3>Interactive Media</h3>
+              <p>Crafting immersive experiences that bridge the digital and physical world. I blends design, technology and storytelling together from responsive websites to installations. I believe in creating interactive experiences that sparks curiosity, emotion and connection.</p>
+            </div>
+          </div>
+          
+        </section>
+
+        <section id="ribbon" class="ribbon-section">
+          <div class="ribbon-track">
+            <div class="ribbon-text">
+              ✧  Designing with a Touch of Magic  ✦  Turning Experiences into Memories  ✧  Crafting Designed Experiences with Wonder  ✦  Where Time Loops & Magic Lingers
+              ✧  Designing with a Touch of Magic  ✦  Turning Experiences into Memories  ✧  Crafting Designed Experiences with Wonder  ✦  Where Time Loops & Magic Lingers
+              ✧  Designing with a Touch of Magic  ✦  Turning Experiences into Memories  ✧  Crafting Designed Experiences with Wonder  ✦  Where Time Loops & Magic Lingers
+              ✧  Designing with a Touch of Magic  ✦  Turning Experiences into Memories  ✧  Crafting Designed Experiences with Wonder  ✦  Where Time Loops & Magic Lingers
+            </div>
+          </div>
+        </section>
+        
+        <section id="projects" class="full-height-section">
+  <!-- p5 background -->
+  <div id="projects-sketch"></div>
+
+  <div class="projects-content">
+
+    <!-- Title / text on top -->
+    <div class="projects-footer">
+      <h2 class="big-date">
+        <span class="move-up">Where Ideas Come to Play</span>
+      </h2>
+    </div>
+
+    <!-- Gallery + arrows -->
+    <div class="projects-gallery-wrapper">
+      <button class="scroll-btn left" type="button" aria-label="Scroll Left">‹</button>
+
+      <div class="projects-gallery" id="projectsGallery">
+
+
+        <div class="project-card">
+          <a href="html/project-candid.html">
+            <img src="images/index/Interactive_projects/project candid.png" alt="Candid" />
+          </a>
+          <p class="ptype">Interior Design</p>
+          <p class="ptitle">Candid</p>
+        </div>
+
+        <div class="project-card">
+          <a href="html/project-misdirections.html">
+            <img src="images/index/Interactive_projects/project_misdirections.jpg" alt="Forest of Misdirections" />
+          </a>
+          <p class="ptype">Interactive Enviroment</p>
+          <p class="ptitle">Forest of Misdirections</p>
+        </div>
+
+        <div class="project-card">
+          <a href="html/project-humanerror.html">
+            <img src="images/index/Interactive_projects/project humanerror.jpg" alt="Human Error" />
+          </a>
+          <p class="ptype">Interactive Media</p>
+          <p class="ptitle">Human Error</p>
+        </div>
+
+        <div class="project-card">
+          <a href="html/project-monster.html">
+            <img src="images/index/Interactive_projects/project monster.jpg" alt="Monster Paint Kit" />
+          </a>
+          <p class="ptype">Interaction Design</p>
+          <p class="ptitle">Monster Paint Kit</p>
+        </div>
+
+        <div class="project-card">
+          <a href="html/project-ecowarriors.html">
+            <img src="images/index/Interactive_projects/project-ecowarriors.png" alt="Eco-Warriors" />
+          </a>
+          <p class="ptype">UIUX</p>
+          <p class="ptitle">Eco-Warriors</p>
+        </div>
+
+
+        <div class="project-card">
+          <a href="html/project-core.html">
+            <img src="images/index/Interactive_projects/project-core.jpg" alt="Core" />
+          </a>
+          <p class="ptype">Interactive Design</p>
+          <p class="ptitle">Core</p>
+        </div>
+
+
+        <div class="project-card">
+          <a href="html/project-popup.html">
+            <img src="images/index/Interactive_projects/project-popup.jpg" alt="Sleeping Cutie" />
+          </a>
+          <p class="ptype">Interior Design</p>
+          <p class="ptitle">POP-UP!</p>
+        </div>
+      </div>
+
+      <button class="scroll-btn right" type="button" aria-label="Scroll Right">›</button>
+    </div>
+
+  </div>
+</section>
+
+<section id="projects-2" class="full-height-section">
+  <!-- p5 background -->
+  <div id="projects-2-sketch"></div>
+
+  <div class="projects-content">
+
+    <!-- Title / footer text -->
+    <div class="projects-footer">
+      <h2 class="big-date">
+        <span class="move-up">More Works & Experiments</span>
+      </h2>
+    </div>
+
+    <!-- GALLERY + ARROWS -->
+    <div class="projects-gallery-wrapper">
+      <button class="scroll-btn left" aria-label="Scroll Left">‹</button>
+
+      <div class="projects-gallery" id="projectsGallery-2">
+
+        <div class="project-card">
+          <a href="html/project-moomoo.html">
+            <img src="images/index/graphics_projects/project-zine.jpg" alt="Moo Moo Zine" />
+          </a>
+          <p class="ptype">Graphics</p>
+          <p class="ptitle">Chicken Rice</p>
+        </div>
+
+        <div class="project-card">
+          <a href="html/project-remembear">
+            <img src="images/index/graphics_projects/pattern.jpg" alt="Pattern" />
+          </a>
+          <p class="ptype">Personal Art</p>
+          <p class="ptitle">To the Moon</p>
+        </div>
+
+        <div class="project-card">
+          <button
+            type="button"
+            class="project-trigger js-project"
+            data-kicker="Personal Art"
+            data-title="To the Moon"
+            data-desc=""
+            data-full="images/index/graphics_projects/panda.PNG"
+          >
+          <img src="images/index/graphics_projects/panda.PNG" alt="To the Moon" />
+          </button>
+
+          <p class="ptype">Graphic Illustration</p>
+          <p class="ptitle">To the Moon</p>
+        </div>
+
+        <div class="project-card">
+          <button
+            type="button"
+            class="project-trigger js-project"
+            data-kicker="Personal Art"
+            data-title="To the Moon"
+            data-desc=""
+            data-full="images/index/graphics_projects/panda.PNG"
+          >
+          <img src="images/index/graphics_projects/project-chickenrice.jpg" alt="Chicken Rice" />
+          </button>
+
+          <p class="ptype">Graphic Illustration</p>
+          <p class="ptitle">Chicken Rice</p>
+        </div>
+
+        <div class="project-card">
+          <a href="html/project-font.html">
+            <img src="images/index/graphics_projects/font.jpg" alt="font illustration" />
+          </a>
+          <p class="ptype">Graphics</p>
+          <p class="ptitle">Cosplay the Font</p>
+        </div>
+
+        <div class="project-card">
+          <button
+            type="button"
+            class="project-trigger js-project"
+            data-kicker="Personal Art"
+            data-title="Kopi"
+           data-desc="Write your description here…"
+           data-full="images/tester.jpg"
+          >
+          <img src="images/index/graphics_projects/kopi.PNG" alt="Kopi" />
+          </button>
+
+          <p class="ptype">Personal Art</p>
+          <p class="ptitle">Kopi is Asleep</p>
+        </div>
+
+        <div class="project-card">
+          <button
+            type="button"
+            class="project-trigger js-project"
+            data-kicker="Personal Art"
+            data-title="Kopi"
+           data-desc="Write your description here…"
+           data-full="images/tester.jpg"
+          >
+          <img src="images/index/graphics_projects/whale52.JPG" alt="Kopi" />
+          </button>
+
+          <p class="ptype">Personal Art</p>
+          <p class="ptitle">Kopi is Asleep</p>
+        </div>
+
+        <div class="project-card">
+          <button
+            type="button"
+            class="project-trigger js-project"
+            data-kicker="Personal Art"
+            data-title="Kopi"
+           data-desc="Write your description here…"
+           data-full="images/tester.jpg"
+          >
+          <img src="images/index/graphics_projects/eat.JPG" alt="Wanna eat" />
+          </button>
+
+          <p class="ptype">Personal Art</p>
+          <p class="ptitle">Wanna Eat?</p>
+        </div>
+
+
+        <!-- <div class="project-card">
+          <a href="project-z.html">
+            <img src="images/project-z.jpg" alt="Project Z" />
+          </a>
+          <p class="ptype">Personal Art</p>
+          <p class="ptitle">Project Z</p>
+        </div> -->
+
+        <!-- Add more cards as needed -->
+
+      </div>
+
+      <button class="scroll-btn right" aria-label="Scroll Right">›</button>
+    </div>
+
+  </div>
+</section>
+
+
+
+          <section id="contact" class="section full-height-section">
+            <div id="contact-sketch"></div>
+            <div id="contact-logo"></div>
+          
+            <div class="contact-layout">
+             <div class="contact-wrapper">
+              <h1 class="contact-heading move-up">
+                Let's make <span class="italic">something</span> creative!
+              </h1>
+              
+              <a href="mailto:hello@yourdomain.com" class="contact-email move-up">limsinxuan@gmail.com</a>
+              
+              <div class="contact-socials move-up">
+                <div class="pill-buttons-wrapper">
+                  <a href="https://linkedin.com/in/lim-sin-xuan" class="pill-button" target="_blank">LinkedIn</a>
+                  <a href="https://instagram.com/sinfullyarts" class="pill-button" target="_blank">Instagram</a>
+                </div>
+              </div>
+                
+<div class="contact-bottom">
+  <div class="quote">
+    <small>Creations That Breathes Life into Imagination.</small>
+  </div>
+
+  <div class="social-credits">
+    <small>
+      <strong>(CREDITS)</strong><br>
+      Designed & built by Lim Sin Xuan, 2026.
+    </small>
+  </div>
+</div>
+
+          
+      </main>
+      
+      <footer>
+        <!-- Footer content -->
+      </footer>
+    </div>
+
+<!-- PROJECT MODAL -->
+<div class="project-modal" id="projectModal" aria-hidden="true">
+  <div class="project-modal__overlay" data-close></div>
+
+  <div class="project-modal__panel">
+    <button class="project-modal__close" type="button" data-close>✕</button>
+
+    <div class="project-modal__content">
+      <figure class="project-modal__media">
+        <img id="modalImg" alt="">
+      </figure>
+
+      <div class="project-modal__text">
+        <p id="modalKicker"></p>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDesc"></p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script src="p5js/sketch1.js"></script>
+    <script src="p5js/sketch2.js"></script>
+    <script src="java/about.js"></script>
+    <script src="p5js/sketch3.js"></script>
+    <script src="java/projects.js"></script>
+    <script src="p5js/sketch4.js"></script>
+    <script src="p5js/sketch5.js"></script>
+    <script src="p5js/sketch6.js"></script>
+    <script src="java/modal.js" defer></script>
+
+  </body>
+</html>
