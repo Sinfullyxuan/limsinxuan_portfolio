@@ -5,22 +5,86 @@ const aboutSketch = (p) => {
   let starColors = [];
   let ready = false;
 
+  // ✅ cached gradient buffer
+  let bg = null;
+  let needsBg = true;
+
+  // ✅ IntersectionObserver
+  let observer = null;
+
+  // ✅ smooth cursor tracking
+  let lastMX = 0,
+    lastMY = 0;
+  let hasMouse = false;
+
   function isMobile() {
     return window.innerWidth < 768;
   }
 
+  // =========================
+  // Gradient caching (ABOUT gradient colors)
+  // =========================
+  function buildGradient() {
+    bg = p.createGraphics(p.width, p.height);
+    bg.pixelDensity(1);
+
+    const topColor = p.color(20, 0, 40);
+    const bottomColor = p.color(80, 0, 120);
+
+    bg.noFill();
+    for (let i = 0; i <= bg.height; i++) {
+      const inter = p.map(i, 0, bg.height, 0, 1);
+      bg.stroke(p.lerpColor(topColor, bottomColor, inter));
+      bg.line(0, i, bg.width, i);
+    }
+
+    needsBg = false;
+  }
+
+  function drawGradient() {
+    if (!bg || needsBg || bg.width !== p.width || bg.height !== p.height) {
+      buildGradient();
+    }
+    p.image(bg, 0, 0);
+  }
+
+  // =========================
+  // Stars
+  // =========================
+  function generateStars() {
+    stars = [];
+
+    const count = isMobile() ? 120 : 300;
+
+    for (let i = 0; i < count; i++) {
+      stars.push(new Star(p.random(p.width), p.random(p.height)));
+    }
+  }
+
+  // =========================
+  // p5 lifecycle
+  // =========================
   p.setup = () => {
     const aboutSection = document.getElementById("about");
-    if (!aboutSection) {
-      console.warn("#about section not found.");
+    const holder = document.getElementById("about-sketch");
+
+    if (!aboutSection || !holder) {
+      console.warn("#about or #about-sketch not found.");
       return;
     }
 
-    const canvas = p.createCanvas(aboutSection.offsetWidth, aboutSection.offsetHeight);
+    const w = aboutSection.clientWidth || aboutSection.offsetWidth;
+    const h = aboutSection.clientHeight || aboutSection.offsetHeight;
+
+    const canvas = p.createCanvas(w, h);
     canvas.parent("about-sketch");
     canvas.position(0, 0);
     canvas.style("z-index", "0");
     canvas.style("position", "absolute");
+
+    // ✅ perf
+    p.pixelDensity(1);
+    p.frameRate(isMobile() ? 30 : 60);
 
     // define colors first
     starColors = [
@@ -29,11 +93,28 @@ const aboutSketch = (p) => {
       p.color(204, 252, 255),
     ];
 
+    // ✅ build cached gradient once
+    needsBg = true;
+    buildGradient();
+
     generateStars();
     ready = true;
 
-    // optional: reduce FPS on mobile
-    if (isMobile()) p.frameRate(30);
+    // ✅ init cursor tracking
+    lastMX = p.mouseX;
+    lastMY = p.mouseY;
+
+    // ✅ Pause / resume when section leaves viewport
+    observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries[0].isIntersecting;
+        if (visible) p.loop();
+        else p.noLoop();
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(aboutSection);
   };
 
   p.draw = () => {
@@ -52,11 +133,38 @@ const aboutSketch = (p) => {
       shootingStars.push(new ShootingStar());
     }
 
+    // ✅ cap so it never grows too much during lag spikes
+    if (shootingStars.length > 6) shootingStars.shift();
+
     for (let i = shootingStars.length - 1; i >= 0; i--) {
       const s = shootingStars[i];
       s.update();
       s.show();
       if (s.isFaded()) shootingStars.splice(i, 1);
+    }
+
+    // ✅ Smooth cursor spawning in draw (instead of mouseMoved)
+    if (!isMobile() && hasMouse) {
+      const dx = p.mouseX - lastMX;
+      const dy = p.mouseY - lastMY;
+      const dist = Math.hypot(dx, dy);
+
+      const step = 6; // smaller = more stars, smoother, but heavier
+      const count = Math.min(10, Math.ceil(dist / step));
+
+      for (let i = 0; i < count; i++) {
+        const t = count === 1 ? 1 : i / (count - 1);
+        const x = p.lerp(lastMX, p.mouseX, t) + p.random(-3, 3);
+        const y = p.lerp(lastMY, p.mouseY, t) + p.random(-3, 3);
+        cursorStars.push(new CursorStar(x, y));
+      }
+
+      lastMX = p.mouseX;
+      lastMY = p.mouseY;
+
+      if (cursorStars.length > 220) {
+        cursorStars.splice(0, cursorStars.length - 220);
+      }
     }
 
     for (let i = cursorStars.length - 1; i >= 0; i--) {
@@ -67,32 +175,6 @@ const aboutSketch = (p) => {
     }
   };
 
-  function drawGradient() {
-    const topColor = p.color(20, 0, 40);
-    const bottomColor = p.color(80, 0, 120);
-    setGradient(0, 0, p.width, p.height, topColor, bottomColor);
-  }
-
-  function setGradient(x, y, w, h, c1, c2) {
-    p.noFill();
-    for (let i = y; i <= y + h; i++) {
-      const inter = p.map(i, y, y + h, 0, 1);
-      p.stroke(p.lerpColor(c1, c2, inter));
-      p.line(x, i, x + w, i);
-    }
-  }
-
-  function generateStars() {
-    stars = [];
-
-    // optional: fewer stars on mobile
-    const count = isMobile() ? 120 : 300;
-
-    for (let i = 0; i < count; i++) {
-      stars.push(new Star(p.random(p.width), p.random(p.height)));
-    }
-  }
-
   p.windowResized = () => {
     const aboutSection = document.getElementById("about");
     if (!aboutSection) return;
@@ -100,9 +182,14 @@ const aboutSketch = (p) => {
     const oldWidth = p.width;
     const oldHeight = p.height;
 
-    p.resizeCanvas(aboutSection.offsetWidth, aboutSection.offsetHeight);
+    const w = aboutSection.clientWidth || aboutSection.offsetWidth;
+    const h = aboutSection.clientHeight || aboutSection.offsetHeight;
 
-    // if canvas was 0, just regenerate
+    p.resizeCanvas(w, h);
+
+    // ✅ rebuild gradient next draw
+    needsBg = true;
+
     if (oldWidth === 0 || oldHeight === 0) {
       generateStars();
       return;
@@ -116,25 +203,32 @@ const aboutSketch = (p) => {
       star.y *= heightRatio;
     }
 
-    // optional: re-gen to adapt star count across breakpoints
     generateStars();
   };
 
-  // cursor stars (disabled on mobile like sketch 1)
+  // ✅ mouseMoved only records "hasMouse" (stable)
   p.mouseMoved = () => {
     if (!ready || isMobile()) return;
 
-    cursorStars.push(new CursorStar(p.mouseX, p.mouseY));
-
-    if (cursorStars.length > 100) {
-      cursorStars.splice(0, cursorStars.length - 100);
+    if (!hasMouse) {
+      lastMX = p.mouseX;
+      lastMY = p.mouseY;
+      hasMouse = true;
+      return;
     }
+
+    hasMouse = true;
+  };
+
+  // cleanup (optional)
+  p.removeObserver = () => {
+    if (observer) observer.disconnect();
+    observer = null;
   };
 
   // =========================
   // Classes
   // =========================
-
   class Star {
     constructor(x, y) {
       this.x = x;
@@ -209,7 +303,12 @@ const aboutSketch = (p) => {
     show() {
       p.stroke(255, this.alpha);
       p.strokeWeight(2);
-      p.line(this.x, this.y, this.x - this.speedX * 5, this.y - this.speedY * 5);
+      p.line(
+        this.x,
+        this.y,
+        this.x - this.speedX * 5,
+        this.y - this.speedY * 5
+      );
     }
 
     isFaded() {
@@ -222,7 +321,6 @@ const aboutSketch = (p) => {
       this.x = x;
       this.y = y;
       this.size = p.random(1, 4);
-      this.brightness = p.random(108, 205);
 
       this.color =
         Array.isArray(starColors) && starColors.length
@@ -237,7 +335,7 @@ const aboutSketch = (p) => {
     update() {
       this.x += this.velocityX;
       this.y += this.velocityY;
-      this.alpha -= 3;
+      this.alpha -= 2; // ✅ slower fade = smoother trail
     }
 
     show() {
@@ -245,12 +343,17 @@ const aboutSketch = (p) => {
 
       if (!(this.color && this.color.levels)) this.color = p.color(255);
 
-      p.fill(p.red(this.color), p.green(this.color), p.blue(this.color), this.alpha);
+      p.fill(
+        p.red(this.color),
+        p.green(this.color),
+        p.blue(this.color),
+        this.alpha
+      );
       p.ellipse(this.x, this.y, this.size);
     }
 
     isFaded() {
-      return this.alpha <= 3;
+      return this.alpha <= 2;
     }
   }
 };

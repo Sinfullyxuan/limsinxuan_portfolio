@@ -2,63 +2,34 @@ const contactSketch5_BG = (p) => {
   let nodes = [];
   let stars = [];
 
-  const numNodes = 90;
-  const numStars = 110;
-  const connectionDistance = 120;
+  // ✅ responsive values (adjusted in setup/resize)
+  let numNodes = 90;
+  let numStars = 110;
+  let connectionDistance = 120;
+  let connectionDist2 = 120 * 120;
 
-  p.setup = () => {
-    const section = document.getElementById("contact");
-    const canvas = p.createCanvas(section.offsetWidth, section.offsetHeight);
+  let ready = false;
 
-    canvas.parent("contact-sketch");
-    canvas.position(0, 0);
-    canvas.style("z-index", "0");
-    canvas.style("pointer-events", "none");
+  function isMobile() {
+    return window.innerWidth < 768;
+  }
 
-    p.noStroke();
+  function setResponsiveParams() {
+    const minDim = Math.min(p.width, p.height);
 
-    initStars();
-    initNodes();
-  };
+    numNodes = isMobile() ? 55 : 90;
+    numStars = isMobile() ? 70 : 110;
 
-  p.draw = () => {
-    drawAnimatedGradient();
-    drawStars();
+    connectionDistance = minDim * (isMobile() ? 0.22 : 0.18);
+    connectionDist2 = connectionDistance * connectionDistance;
+  }
 
-    for (let i = 0; i < nodes.length; i++) {
-      const n1 = nodes[i];
-
-      // ✅ Ambient pulse only (no mouse hover)
-      const pulse = p.sin(p.frameCount * 0.05 + i * 0.2) * 1.2 + 3;
-
-      // ✅ Softer node
-      p.noStroke();
-      p.fill(255, 180);
-      p.ellipse(n1.x, n1.y, pulse);
-
-      // ✅ Connection lines (softer)
-      for (let j = i + 1; j < nodes.length; j++) {
-        const n2 = nodes[j];
-        const d = p.dist(n1.x, n1.y, n2.x, n2.y);
-        if (d < connectionDistance) {
-          p.stroke(255, p.map(d, 0, connectionDistance, 120, 0));
-          p.line(n1.x, n1.y, n2.x, n2.y);
-        }
-      }
-
-      // Move & wrap nodes
-      n1.x += n1.vx;
-      n1.y += n1.vy;
-
-      if (n1.x < 0) n1.x = p.width;
-      if (n1.x > p.width) n1.x = 0;
-      if (n1.y < 0) n1.y = p.height;
-      if (n1.y > p.height) n1.y = 0;
-    }
-  };
-
+  // =========================
+  // Smooth Animated Gradient
+  // =========================
   function drawAnimatedGradient() {
-    const t = p.millis() * 0.0002;
+    // Use global time so all sections feel connected
+    const t = performance.now() * 0.0002;
 
     const topColor = p.lerpColor(
       p.color(30, 0, 60),
@@ -73,7 +44,7 @@ const contactSketch5_BG = (p) => {
     );
 
     for (let y = 0; y < p.height; y++) {
-      const inter = p.map(y, 0, p.height, 0, 1);
+      const inter = y / p.height;
       p.stroke(p.lerpColor(topColor, bottomColor, inter));
       p.line(0, y, p.width, y);
     }
@@ -119,12 +90,85 @@ const contactSketch5_BG = (p) => {
     }
   }
 
+  p.setup = () => {
+    const section = document.getElementById("contact");
+    const holder = document.getElementById("contact-sketch");
+    if (!section || !holder) return;
+
+    const w = section.clientWidth || section.offsetWidth;
+    const h = section.clientHeight || section.offsetHeight;
+
+    const canvas = p.createCanvas(w, h);
+    canvas.parent("contact-sketch");
+    canvas.position(0, 0);
+    canvas.style("z-index", "0");
+    canvas.style("position", "absolute");
+    canvas.style("pointer-events", "none");
+
+    p.pixelDensity(1);
+    p.frameRate(isMobile() ? 30 : 60);
+
+    setResponsiveParams();
+    initStars();
+    initNodes();
+
+    ready = true;
+  };
+
+  p.draw = () => {
+    if (!ready) return;
+
+    drawAnimatedGradient();
+    drawStars();
+
+    for (let i = 0; i < nodes.length; i++) {
+      const n1 = nodes[i];
+
+      // soft ambient pulse
+      const pulse = p.sin(p.frameCount * 0.05 + i * 0.2) * 1.2 + 3;
+
+      p.noStroke();
+      p.fill(255, 180);
+      p.ellipse(n1.x, n1.y, pulse);
+
+      // connection lines (squared distance for performance)
+      for (let j = i + 1; j < nodes.length; j++) {
+        const n2 = nodes[j];
+
+        const dx = n1.x - n2.x;
+        const dy = n1.y - n2.y;
+        const d2 = dx * dx + dy * dy;
+
+        if (d2 < connectionDist2) {
+          const d = Math.sqrt(d2);
+          p.stroke(255, p.map(d, 0, connectionDistance, 120, 0));
+          p.line(n1.x, n1.y, n2.x, n2.y);
+        }
+      }
+
+      // move & wrap
+      n1.x += n1.vx;
+      n1.y += n1.vy;
+
+      if (n1.x < 0) n1.x = p.width;
+      if (n1.x > p.width) n1.x = 0;
+      if (n1.y < 0) n1.y = p.height;
+      if (n1.y > p.height) n1.y = 0;
+    }
+  };
+
   p.windowResized = () => {
     const section = document.getElementById("contact");
-    p.resizeCanvas(section.offsetWidth, section.offsetHeight);
+    if (!section) return;
 
+    const w = section.clientWidth || section.offsetWidth;
+    const h = section.clientHeight || section.offsetHeight;
+
+    p.resizeCanvas(w, h);
+
+    setResponsiveParams();
     initStars();
-    initNodes(); // ✅ keeps the calm speed
+    initNodes();
   };
 };
 

@@ -19,6 +19,18 @@ function preload() {
   img = loadImage(IMG_FILE);
 }
 
+// ✅ Pause when offscreen (simple + lightweight)
+function checkVisibility() {
+  const section = document.getElementById("contact");
+  if (!section) return;
+
+  const rect = section.getBoundingClientRect();
+  const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+  if (isVisible) loop();
+  else noLoop();
+}
+
 function setup() {
   const container = document.getElementById("contact");
   if (container) {
@@ -32,6 +44,11 @@ function setup() {
 
   img.resize(TARGET_IMG_W, 0);
   buildParticlesFromImage();
+
+  // ✅ Start paused correctly + update on scroll/resize
+  checkVisibility();
+  window.addEventListener("scroll", checkVisibility, { passive: true });
+  window.addEventListener("resize", checkVisibility);
 }
 
 function draw() {
@@ -101,7 +118,8 @@ function buildParticlesFromImage() {
         const hy = y - h * 0.5;
 
         pts.push({
-          hx, hy,
+          hx,
+          hy,
           x: hx + randomGaussian(0, 0.6),
           y: hy + randomGaussian(0, 0.6),
           vx: 0,
@@ -123,7 +141,7 @@ function triggerDisperse(cx, cy, scale) {
   const affectRadius = 120;
   const burstMin = 0.03;
   const burstMax = 0.09;
-  const upwardLift = 0.10;
+  const upwardLift = 0.1;
   const swirl = 0.35;
   const jitter = 0.18;
 
@@ -152,8 +170,8 @@ function triggerDisperse(cx, cy, scale) {
     const inv = 1 / max(d, 1);
     const ux = dx * inv;
     const uy = dy * inv;
-    p.vx += (-uy) * swirl * k;
-    p.vy += ( ux) * swirl * k;
+    p.vx += -uy * swirl * k;
+    p.vy += ux * swirl * k;
   }
 }
 
@@ -191,11 +209,11 @@ function updateParticles(cx, cy, scale, mx, my) {
       const vxField = n1 - 0.5;
       const vyField = n2 - 0.5;
 
-      p.vx += (-vyField) * smokeStrength;
-      p.vy += ( vxField) * smokeStrength;
+      p.vx += -vyField * smokeStrength;
+      p.vy += vxField * smokeStrength;
 
       // buoyancy
-      p.vy -= 0.10;
+      p.vy -= 0.1;
 
       // extra mouse influence
       const sx = cx + p.x * scale;
@@ -214,11 +232,11 @@ function updateParticles(cx, cy, scale, mx, my) {
         const uy = dy * inv;
 
         const invScale = 1 / max(scale, 0.0001);
-        p.vx += (ux * mousePush * k) * invScale;
-        p.vy += (uy * mousePush * k) * invScale;
+        p.vx += ux * mousePush * k * invScale;
+        p.vy += uy * mousePush * k * invScale;
 
-        p.vx += (-uy * mouseSwirl * k) * invScale;
-        p.vy += ( ux * mouseSwirl * k) * invScale;
+        p.vx += -uy * mouseSwirl * k * invScale;
+        p.vy += ux * mouseSwirl * k * invScale;
       }
 
       // gentle pull home during disperse
@@ -231,7 +249,7 @@ function updateParticles(cx, cy, scale, mx, my) {
       // slow return
       const u = constrain((recoverFrames - cooldown) / recoverFrames, 0, 1);
       const ease = u * u * (3 - 2 * u);
-      const springNow = baseSpring * (0.20 + 0.80 * ease);
+      const springNow = baseSpring * (0.2 + 0.8 * ease);
 
       p.vx += (p.hx - p.x) * springNow;
       p.vy += (p.hy - p.y) * springNow;
@@ -272,9 +290,6 @@ function updateParticles(cx, cy, scale, mx, my) {
       p.vy *= 0.5;
     }
 
-    // keep inside canvas while dispersing
-    // if (disperseTimer > 0) softScreenBounce(p, cx, cy, scale);
-
     // damping
     p.vx *= damp;
     p.vy *= damp;
@@ -302,71 +317,6 @@ function drawParticles(cx, cy, scale) {
   blendMode(BLEND);
 }
 
-function softScreenBounce(p, cx, cy, scale) {
-  const margin = 50;
-  const softness = 150;
-  const bounce = 0.14;
-  const edgeDamp = 0.93;
-
-  const sx = cx + p.x * scale;
-  const sy = cy + p.y * scale;
-
-  const invScale = 1 / max(scale, 0.0001);
-
-  const leftEdge = margin + softness;
-  if (sx < leftEdge) {
-    const u = constrain((leftEdge - sx) / softness, 0, 1);
-    const s = u * u * (3 - 2 * u);
-    p.vx += (bounce * s) * invScale * 20;
-    p.vx *= edgeDamp;
-    p.vy *= edgeDamp;
-  }
-
-  const rightEdge = width - margin - softness;
-  if (sx > rightEdge) {
-    const u = constrain((sx - rightEdge) / softness, 0, 1);
-    const s = u * u * (3 - 2 * u);
-    p.vx -= (bounce * s) * invScale * 20;
-    p.vx *= edgeDamp;
-    p.vy *= edgeDamp;
-  }
-
-  const topEdge = margin + softness;
-  if (sy < topEdge) {
-    const u = constrain((topEdge - sy) / softness, 0, 1);
-    const s = u * u * (3 - 2 * u);
-    p.vy += (bounce * s) * invScale * 20;
-    p.vx *= edgeDamp;
-    p.vy *= edgeDamp;
-  }
-
-  const bottomEdge = height - margin - softness;
-  if (sy > bottomEdge) {
-    const u = constrain((sy - bottomEdge) / softness, 0, 1);
-    const s = u * u * (3 - 2 * u);
-    p.vy -= (bounce * s) * invScale * 20;
-    p.vx *= edgeDamp;
-    p.vy *= edgeDamp;
-  }
-
-  // last-resort clamp
-  const minX = margin;
-  const maxX = width - margin;
-  const minY = margin;
-  const maxY = height - margin;
-
-  if (sx < minX || sx > maxX || sy < minY || sy > maxY) {
-    const clampedSX = constrain(sx, minX, maxX);
-    const clampedSY = constrain(sy, minY, maxY);
-
-    p.x += (clampedSX - sx) * invScale;
-    p.y += (clampedSY - sy) * invScale;
-
-    p.vx *= 0.6;
-    p.vy *= 0.6;
-  }
-}
-
 function windowResized() {
   const container = document.getElementById("contact");
   if (container) {
@@ -374,4 +324,7 @@ function windowResized() {
   } else {
     resizeCanvas(windowWidth, windowHeight);
   }
+
+  // ✅ update visibility on resize too
+  checkVisibility();
 }
