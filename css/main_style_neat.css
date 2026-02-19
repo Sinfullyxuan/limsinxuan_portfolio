@@ -130,7 +130,7 @@ nav a {
 .hero-content * { pointer-events: auto; }
 
 .hero-video {
-  width: 100%;
+  width: 300%;
   max-width: 105vw;
   height: auto;
   border-radius: 10px;
