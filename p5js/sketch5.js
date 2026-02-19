@@ -8,6 +8,11 @@ const contactSketch5_BG = (p) => {
   let connectionDistance = 120;
   let connectionDist2 = 120 * 120;
 
+  // ✅ cached animated gradient (MATCH sketch3)
+  let bg = null;
+  let needsBg = true;
+  const GRADIENT_EVERY = 3;
+
   let ready = false;
 
   function isMobile() {
@@ -25,31 +30,49 @@ const contactSketch5_BG = (p) => {
   }
 
   // =========================
-  // Smooth Animated Gradient
+  // Cached animated gradient (EXACTLY like sketch3)
   // =========================
-  function drawAnimatedGradient() {
-    // Use global time so all sections feel connected
-    const t = performance.now() * 0.0002;
+  function buildAnimatedGradient() {
+    bg = p.createGraphics(p.width, p.height);
+    bg.pixelDensity(1);
 
+    const t = p.millis() * 0.0002; // ✅ same time source as sketch3
     const topColor = p.lerpColor(
       p.color(30, 0, 60),
       p.color(80, 0, 120),
       (p.sin(t) + 1) / 2
     );
-
     const bottomColor = p.lerpColor(
       p.color(10, 0, 30),
       p.color(60, 0, 80),
       (p.cos(t) + 1) / 2
     );
 
-    for (let y = 0; y < p.height; y++) {
-      const inter = y / p.height;
-      p.stroke(p.lerpColor(topColor, bottomColor, inter));
-      p.line(0, y, p.width, y);
+    for (let y = 0; y < bg.height; y++) {
+      const inter = y / bg.height;
+      bg.stroke(p.lerpColor(topColor, bottomColor, inter));
+      bg.line(0, y, bg.width, y);
     }
+
+    needsBg = false;
   }
 
+  function drawAnimatedGradient() {
+    if (
+      needsBg ||
+      !bg ||
+      bg.width !== p.width ||
+      bg.height !== p.height ||
+      p.frameCount % GRADIENT_EVERY === 0
+    ) {
+      buildAnimatedGradient();
+    }
+    p.image(bg, 0, 0);
+  }
+
+  // =========================
+  // Stars (same as your sketch5)
+  // =========================
   function drawStars() {
     p.noStroke();
     for (let s of stars) {
@@ -78,6 +101,9 @@ const contactSketch5_BG = (p) => {
     }
   }
 
+  // =========================
+  // Nodes (same as your sketch5)
+  // =========================
   function initNodes() {
     nodes = [];
     for (let i = 0; i < numNodes; i++) {
@@ -112,12 +138,14 @@ const contactSketch5_BG = (p) => {
     initStars();
     initNodes();
 
+    needsBg = true; // ✅ important so it rebuilds on first draw
     ready = true;
   };
 
   p.draw = () => {
     if (!ready) return;
 
+    // ✅ background EXACT match to sketch3
     drawAnimatedGradient();
     drawStars();
 
@@ -169,6 +197,8 @@ const contactSketch5_BG = (p) => {
     setResponsiveParams();
     initStars();
     initNodes();
+
+    needsBg = true; // ✅ rebuild cached gradient for new size
   };
 };
 
