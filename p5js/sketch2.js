@@ -130,21 +130,21 @@ function buildGradient() {
     generateStars();
   };
 
-  p.mouseMoved = () => {
-    if (!ready || isMobile()) return;
-    cursorStars.push(new CursorStar(p.mouseX, p.mouseY));
-    if (cursorStars.length > 100) cursorStars.splice(0, cursorStars.length - 100);
-  };
-
-    // p.mouseMoved = () => {
-  //   if (isMobile() || !ready) return;
-
-  //   // keep your “more stars”
-  //   for (let i = 0; i < 3; i++) {
-  //     cursorStars.push(new CursorStar(p.mouseX + p.random(-4, 4), p.mouseY + p.random(-4, 4)));
-  //   }
-  //   if (cursorStars.length > 200) cursorStars.splice(0, cursorStars.length - 200);
+  // p.mouseMoved = () => {
+  //   if (!ready || isMobile()) return;
+  //   cursorStars.push(new CursorStar(p.mouseX, p.mouseY));
+  //   if (cursorStars.length > 100) cursorStars.splice(0, cursorStars.length - 100);
   // };
+
+    p.mouseMoved = () => {
+    if (isMobile() || !ready) return;
+
+    // keep your “more stars”
+    for (let i = 0; i < 3; i++) {
+      cursorStars.push(new CursorStar(p.mouseX + p.random(-4, 4), p.mouseY + p.random(-4, 4)));
+    }
+    if (cursorStars.length > 200) cursorStars.splice(0, cursorStars.length - 200);
+  };
 
   class Star {
     constructor(x, y) {
