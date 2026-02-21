@@ -1,3 +1,5 @@
+console.log("RUNNING sketch1.js");
+
 const homeSketch = (p) => {
   let stars = [];
   let shootingStars = [];
@@ -5,8 +7,8 @@ const homeSketch = (p) => {
   let starColors = [];
   let ready = false;
 
-  // ✅ cached gradient buffer (REUSED, not recreated endlessly)
-  let bg;
+  // ✅ cached gradient buffer
+  let bg = null;
   let needsBg = true;
 
   // ✅ pause/resume
@@ -18,7 +20,7 @@ const homeSketch = (p) => {
   }
 
   function buildGradient() {
-    // create once, then resize + redraw (avoids GPU leaks)
+    // create once, then resize + redraw
     if (!bg) bg = p.createGraphics(10, 10);
     if (bg.width !== p.width || bg.height !== p.height) bg.resizeCanvas(p.width, p.height);
     bg.pixelDensity(1);
@@ -26,9 +28,11 @@ const homeSketch = (p) => {
     const topColor = p.color(9, 0, 18);
     const bottomColor = p.color(20, 0, 40);
 
-    bg.noFill();
+    // ✅ fully overwrite buffer (prevents random “lighter” states)
+    bg.background(bottomColor);
+
     for (let y = 0; y < bg.height; y++) {
-      const inter = y / bg.height;
+      const inter = y / (bg.height - 1);
       bg.stroke(p.lerpColor(topColor, bottomColor, inter));
       bg.line(0, y, bg.width, y);
     }
@@ -64,8 +68,9 @@ const homeSketch = (p) => {
     canvas.style("position", "absolute");
     canvas.style("pointer-events", "none");
 
+    // ✅ determinism across refresh + hiDPI
     p.pixelDensity(1);
-    p.frameRate(30); // ✅ keep stable
+    p.frameRate(30);
 
     starColors = [
       p.color(255, 255, 255),
@@ -94,10 +99,15 @@ const homeSketch = (p) => {
       { threshold: 0.25, rootMargin: "200px 0px" }
     );
     observer.observe(homeSection);
+
+    
   };
 
   p.draw = () => {
     if (!ready) return;
+
+    // ✅ always paint an opaque base (prevents “lighter”/flashing)
+    p.background(9, 0, 18);
 
     drawGradient();
 
@@ -134,22 +144,16 @@ const homeSketch = (p) => {
     const h = homeSection.clientHeight || homeSection.offsetHeight;
 
     p.resizeCanvas(w, h);
+
+    // ✅ keep density consistent after resize
+    p.pixelDensity(1);
+
     needsBg = true;
     buildGradient();
     generateStars();
   };
 
-  // p.mouseMoved = () => {
-  //   if (isMobile() || !ready) return;
-
-  //   // keep your “more stars”
-  //   for (let i = 0; i < 3; i++) {
-  //     cursorStars.push(new CursorStar(p.mouseX + p.random(-4, 4), p.mouseY + p.random(-4, 4)));
-  //   }
-  //   if (cursorStars.length > 200) cursorStars.splice(0, cursorStars.length - 200);
-  // };
-
-    p.mouseMoved = () => {
+  p.mouseMoved = () => {
     if (!ready || isMobile()) return;
     cursorStars.push(new CursorStar(p.mouseX, p.mouseY));
     if (cursorStars.length > 100) cursorStars.splice(0, cursorStars.length - 100);
@@ -177,15 +181,23 @@ const homeSketch = (p) => {
     }
 
     show() {
+      const ctx = p.drawingContext;
+      ctx.save(); // ✅ prevent shadow/composite state leaking between draws
+
       p.noStroke();
+
       if (this.isBig) {
-        p.drawingContext.shadowBlur = this.size;
-        p.drawingContext.shadowColor = p.color(p.red(this.color), p.green(this.color), p.blue(this.color), this.brightness);
+        ctx.shadowBlur = this.size * 2;
+        ctx.shadowColor = `rgba(${p.red(this.color)}, ${p.green(this.color)}, ${p.blue(this.color)}, ${this.brightness / 255})`;
       } else {
-        p.drawingContext.shadowBlur = 0;
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = "rgba(0,0,0,0)";
       }
+
       p.fill(p.red(this.color), p.green(this.color), p.blue(this.color), this.brightness);
       p.ellipse(this.x, this.y, this.size);
+
+      ctx.restore();
     }
   }
 
@@ -197,32 +209,47 @@ const homeSketch = (p) => {
       this.speedY = p.random(3, 7);
       this.alpha = 255;
     }
-    update() { this.x += this.speedX; this.y += this.speedY; this.alpha -= 5; }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.alpha -= 5;
+    }
     show() {
       p.stroke(255, this.alpha);
       p.strokeWeight(2);
       p.line(this.x, this.y, this.x - this.speedX * 5, this.y - this.speedY * 5);
     }
-    isFaded() { return this.alpha <= 0; }
+    isFaded() {
+      return this.alpha <= 0;
+    }
   }
 
   class CursorStar {
     constructor(x, y) {
-      this.x = x; this.y = y;
+      this.x = x;
+      this.y = y;
       this.size = p.random(1, 4);
       this.color = starColors.length ? p.random(starColors) : p.color(255);
       this.vx = p.random(-1, 1);
       this.vy = p.random(-1, 1);
       this.alpha = 205;
     }
-    update() { this.x += this.vx; this.y += this.vy; this.alpha -= 3; }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.alpha -= 3;
+    }
     show() {
       p.noStroke();
       p.fill(p.red(this.color), p.green(this.color), p.blue(this.color), this.alpha);
       p.ellipse(this.x, this.y, this.size);
     }
-    isFaded() { return this.alpha <= 3; }
+    isFaded() {
+      return this.alpha <= 3;
+    }
   }
 };
 
-new p5(homeSketch);
+// ✅ guard against accidental double-init (prevents stacked canvases / flicker)
+if (window.__homeP5) window.__homeP5.remove();
+window.__homeP5 = new p5(homeSketch);

@@ -11,8 +11,62 @@
 }
 
 /* =============================
-   CONTAINER
+   CONTAINER + P5 BACKGROUND
 ============================= */
+
+/* consistent section base */
+#home, #about, #projects, #projects-2, #contact {
+  background: rgb(9, 0, 18);
+}
+
+/* consistent section sizing */
+.full-height-section{
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* all p5 layers the same */
+#p5-sketch,
+#about-sketch,
+#projects-sketch,
+#projects-2-sketch,
+#contact-sketch,
+#contact-logo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#p5-sketch canvas,
+#about-sketch canvas,
+#projects-sketch canvas,
+#projects-2-sketch canvas,
+#contact-sketch canvas,
+#contact-logo canvas{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* content always above */
+.hero-content,
+.about-content,
+.projects-content,
+.contact-layout{
+  position: relative;
+  z-index: 2;
+}
 
 .homepage-container {
   position: relative;
@@ -77,34 +131,7 @@ nav a {
   transition: all 0.3s ease;
 }
 
-/* =============================
-   SECTION BASE
-============================= */
 
-.full-height-section {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  min-height: 100svh;
-  overflow: hidden;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* =============================
-   P5 BACKGROUND
-============================= */
-
-#p5-sketch {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
 
 /* =============================
    HERO CONTENT
@@ -152,26 +179,6 @@ nav a {
 /* =============================
    ABOUT SECTION
 ============================= */
-
-#about {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
-  overflow: hidden;
-  background-color: rgb(51, 0, 79);
-}
-
-#about-sketch {
-  position: absolute;
-  inset: 0; /* top:0 right:0 bottom:0 left:0 */
-  width: 100%;
-  height: 100%;
-  z-index: 1; /* behind content */
-  pointer-events: none;
-}
-
-#about-sketch canvas { display: block; }
 
 /* Content above the sketch */
 .about-content {
@@ -264,7 +271,7 @@ nav a {
   overflow: hidden;
   color: white;
   font-family: "Cinzel", serif;
-  background-color: rgb(51, 0, 79);
+  background-color: rgb(9, 0, 18);
 }
 
 /* Override global centering */
@@ -274,13 +281,6 @@ nav a {
   padding-top: clamp(6rem, 10vh, 8rem);
 }
 
-/* p5 background */
-#projects-sketch {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
 
 /* =========================
    CONTENT WRAPPER
@@ -446,20 +446,12 @@ nav a {
   overflow: hidden;
   color: white;
   font-family: "Cinzel", serif;
-  background-color: rgb(51, 0, 79);
 }
 
 #projects-2.full-height-section {
   align-items: flex-start;
   justify-content: flex-start;
   padding-top: clamp(6rem, 10vh, 8rem);
-}
-
-#projects-2-sketch {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
 }
 
 /* Content */
@@ -612,22 +604,13 @@ nav a {
   overflow: hidden;
   color: white;
   font-family: "Cinzel", serif;
-  background-color: rgb(51, 0, 79);
 }
 
-/* p5 background */
-#contact-sketch,
-#contact-logo {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
 
 /* Grid layout: content + footer */
 .contact-layout {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 
   min-height: 100vh;
 
@@ -866,18 +849,6 @@ nav a {
   height: min(82vh, 720px);
 }
 
-.project-modal__media img{
-  width: auto;
-  height: auto;
-
-  max-width: min(62vw, 900px); /* only a safety limit */
-  max-height: 100%;            /* fit the stage height */
-
-  object-fit: contain;
-  display: block;
-
-  box-shadow: none;
-}
 
 
 .project-modal__media img{

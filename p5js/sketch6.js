@@ -2,6 +2,8 @@
 // Mouse-local disperse + smoke curl + slow return
 // p5.js Web Editor + website friendly (uses #logo-canvas if present)
 
+console.log("RUNNING sketch6.js");
+
 const IMG_FILE = "images/sx_logo2.png";
 let img;
 

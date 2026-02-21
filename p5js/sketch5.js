@@ -1,3 +1,5 @@
+console.log("RUNNING sketch5.js");
+
 const contactSketch5_BG = (p) => {
   let nodes = [];
   let stars = [];
@@ -8,7 +10,7 @@ const contactSketch5_BG = (p) => {
   let connectionDistance = 120;
   let connectionDist2 = 120 * 120;
 
-  // ✅ cached animated gradient (MATCH sketch3)
+  // ✅ cached animated gradient (FIXED: no canvas leak)
   let bg = null;
   let needsBg = true;
   const GRADIENT_EVERY = 3;
@@ -30,13 +32,20 @@ const contactSketch5_BG = (p) => {
   }
 
   // =========================
-  // Cached animated gradient (EXACTLY like sketch3)
+  // Cached animated gradient (FIXED)
   // =========================
   function buildAnimatedGradient() {
-    bg = p.createGraphics(p.width, p.height);
+    // ✅ create ONCE
+    if (!bg) bg = p.createGraphics(10, 10);
+
+    // ✅ resize only when needed
+    if (bg.width !== p.width || bg.height !== p.height) {
+      bg.resizeCanvas(p.width, p.height);
+    }
+
     bg.pixelDensity(1);
 
-    const t = p.millis() * 0.0002; // ✅ same time source as sketch3
+    const t = p.millis() * 0.0002; // same time source as sketch3
     const topColor = p.lerpColor(
       p.color(30, 0, 60),
       p.color(80, 0, 120),
@@ -48,8 +57,11 @@ const contactSketch5_BG = (p) => {
       (p.cos(t) + 1) / 2
     );
 
+    // ✅ fully repaint buffer (prevents leftover/alpha artifacts)
+    bg.background(topColor);
+
     for (let y = 0; y < bg.height; y++) {
-      const inter = y / bg.height;
+      const inter = bg.height <= 1 ? 0 : y / (bg.height - 1);
       bg.stroke(p.lerpColor(topColor, bottomColor, inter));
       bg.line(0, y, bg.width, y);
     }
@@ -58,6 +70,7 @@ const contactSketch5_BG = (p) => {
   }
 
   function drawAnimatedGradient() {
+    // ✅ only rebuild occasionally (but without creating new canvases)
     if (
       needsBg ||
       !bg ||
@@ -71,7 +84,7 @@ const contactSketch5_BG = (p) => {
   }
 
   // =========================
-  // Stars (same as your sketch5)
+  // Stars
   // =========================
   function drawStars() {
     p.noStroke();
@@ -102,7 +115,7 @@ const contactSketch5_BG = (p) => {
   }
 
   // =========================
-  // Nodes (same as your sketch5)
+  // Nodes
   // =========================
   function initNodes() {
     nodes = [];
@@ -125,7 +138,11 @@ const contactSketch5_BG = (p) => {
     const h = section.clientHeight || section.offsetHeight;
 
     const canvas = p.createCanvas(w, h);
-    canvas.parent("contact-sketch");
+
+    // ✅ parent using element reference (more reliable)
+    holder.innerHTML = ""; // prevents accidental stacking
+    canvas.parent(holder);
+
     canvas.position(0, 0);
     canvas.style("z-index", "0");
     canvas.style("position", "absolute");
@@ -138,28 +155,29 @@ const contactSketch5_BG = (p) => {
     initStars();
     initNodes();
 
-    needsBg = true; // ✅ important so it rebuilds on first draw
+    needsBg = true;
+    buildAnimatedGradient(); // build once at start
     ready = true;
   };
 
   p.draw = () => {
     if (!ready) return;
 
-    // ✅ background EXACT match to sketch3
+    // ✅ opaque base reduces any flash/compositing weirdness
+    p.background(9, 0, 18);
+
     drawAnimatedGradient();
     drawStars();
 
     for (let i = 0; i < nodes.length; i++) {
       const n1 = nodes[i];
 
-      // soft ambient pulse
       const pulse = p.sin(p.frameCount * 0.05 + i * 0.2) * 1.2 + 3;
 
       p.noStroke();
       p.fill(255, 180);
       p.ellipse(n1.x, n1.y, pulse);
 
-      // connection lines (squared distance for performance)
       for (let j = i + 1; j < nodes.length; j++) {
         const n2 = nodes[j];
 
@@ -174,7 +192,6 @@ const contactSketch5_BG = (p) => {
         }
       }
 
-      // move & wrap
       n1.x += n1.vx;
       n1.y += n1.vy;
 
@@ -193,13 +210,16 @@ const contactSketch5_BG = (p) => {
     const h = section.clientHeight || section.offsetHeight;
 
     p.resizeCanvas(w, h);
+    p.pixelDensity(1);
 
     setResponsiveParams();
     initStars();
     initNodes();
 
-    needsBg = true; // ✅ rebuild cached gradient for new size
+    needsBg = true; // rebuild gradient once for new size
   };
 };
 
-new p5(contactSketch5_BG);
+// ✅ guard against double-init
+if (window.__p5Sketch5) window.__p5Sketch5.remove();
+window.__p5Sketch5 = new p5(contactSketch5_BG);

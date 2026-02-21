@@ -1,3 +1,5 @@
+console.log("RUNNING sketch3.js");
+
 const projectSketch = (p) => {
   let nodes = [];
   let stars = [];
@@ -74,8 +76,9 @@ const projectSketch = (p) => {
   // Cached animated gradient
   // =========================
   function buildAnimatedGradient() {
-    bg = p.createGraphics(p.width, p.height);
-    bg.pixelDensity(1);
+   if (!bg) bg = p.createGraphics(10, 10);
+   if (bg.width !== p.width || bg.height !== p.height) bg.resizeCanvas(p.width, p.height);
+   bg.pixelDensity(1);
 
     const t = p.millis() * 0.0002;
     const topColor = p.lerpColor(

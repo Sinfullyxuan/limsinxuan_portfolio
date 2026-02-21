@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/index.css" rel="stylesheet">
+
+    <script>
+  (function () {
+    const origCreateElement = Document.prototype.createElement;
+    Document.prototype.createElement = function(tagName, ...args) {
+      const el = origCreateElement.call(this, tagName, ...args);
+      if (String(tagName).toLowerCase() === "canvas") {
+        console.group("🧨 canvas created");
+        console.trace();
+        console.groupEnd();
+      }
+      return el;
+    };
+  })();
+</script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <title>Document</title>
 </head>
@@ -324,7 +342,7 @@
               
               <div class="contact-socials move-up">
                 <div class="pill-buttons-wrapper">
-                  <a href="www.linkedin.com/in/lim-sin-xuan-a35333354" class="pill-button" target="_blank">LinkedIn</a>
+                  <a href="https://www.linkedin.com/in/lim-sin-xuan-a35333354" class="pill-button" target="_blank">LinkedIn</a>
                   <a href="https://www.instagram.com/sinfullyarts?igsh=MTRnb29pNW1zejZ3cg%3D%3D&utm_source=qr" class="pill-button" target="_blank">Instagram</a>
                 </div>
               </div>
@@ -371,6 +389,7 @@
     </div>
   </div>
 </div>
+
 
     <script src="p5js/sketch1.js"></script>
     <script src="p5js/sketch2.js"></script>

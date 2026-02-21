@@ -1,3 +1,5 @@
+console.log("RUNNING sketch2.js");
+
 const aboutSketch = (p) => {
   let stars = [];
   let shootingStars = [];
@@ -15,23 +17,25 @@ const aboutSketch = (p) => {
     return window.innerWidth < 768;
   }
 
-  function buildGradient() {
-    if (!bg) bg = p.createGraphics(10, 10);
-    if (bg.width !== p.width || bg.height !== p.height) bg.resizeCanvas(p.width, p.height);
-    bg.pixelDensity(1);
+function buildGradient() {
+  if (!bg) bg = p.createGraphics(10, 10);
+  if (bg.width !== p.width || bg.height !== p.height) bg.resizeCanvas(p.width, p.height);
+  bg.pixelDensity(1);
 
-    const topColor = p.color(20, 0, 40);
-    const bottomColor = p.color(80, 0, 120);
+  const topColor = p.color(20, 0, 40);
+  const bottomColor = p.color(80, 0, 120);
 
-    bg.noFill();
-    for (let y = 0; y < bg.height; y++) {
-      const inter = y / bg.height;
-      bg.stroke(p.lerpColor(topColor, bottomColor, inter));
-      bg.line(0, y, bg.width, y);
-    }
+  // ✅ fully repaint buffer (prevents washed-out / leftover artifacts)
+  bg.background(topColor);
 
-    needsBg = false;
+  for (let y = 0; y < bg.height; y++) {
+    const inter = y / (bg.height - 1);
+    bg.stroke(p.lerpColor(topColor, bottomColor, inter));
+    bg.line(0, y, bg.width, y);
   }
+
+  needsBg = false;
+}
 
   function drawGradient() {
     if (needsBg || !bg) buildGradient();
@@ -53,7 +57,8 @@ const aboutSketch = (p) => {
     const h = aboutSection.clientHeight || aboutSection.offsetHeight;
 
     const canvas = p.createCanvas(w, h);
-    canvas.parent("about-sketch");
+    holder.innerHTML = "";     // prevents rare stacking
+    canvas.parent(holder);
     canvas.position(0, 0);
     canvas.style("z-index", "0");
     canvas.style("position", "absolute");
@@ -83,11 +88,14 @@ const aboutSketch = (p) => {
       { threshold: 0.25, rootMargin: "200px 0px" }
     );
     observer.observe(aboutSection);
+
+    
   };
 
   p.draw = () => {
     if (!ready) return;
 
+    p.background(20, 0, 40); // ✅ solid base so it never looks faded
     drawGradient();
 
     for (let star of stars) { star.update(); star.show(); }
@@ -127,6 +135,16 @@ const aboutSketch = (p) => {
     cursorStars.push(new CursorStar(p.mouseX, p.mouseY));
     if (cursorStars.length > 100) cursorStars.splice(0, cursorStars.length - 100);
   };
+
+    // p.mouseMoved = () => {
+  //   if (isMobile() || !ready) return;
+
+  //   // keep your “more stars”
+  //   for (let i = 0; i < 3; i++) {
+  //     cursorStars.push(new CursorStar(p.mouseX + p.random(-4, 4), p.mouseY + p.random(-4, 4)));
+  //   }
+  //   if (cursorStars.length > 200) cursorStars.splice(0, cursorStars.length - 200);
+  // };
 
   class Star {
     constructor(x, y) {

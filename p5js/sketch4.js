@@ -1,3 +1,5 @@
+console.log("RUNNING sketch4.js");
+
 const contactSketch = (p) => {
   let nodes = [];
   let stars = [];
@@ -74,7 +76,8 @@ const contactSketch = (p) => {
   // Cached animated gradient (SKETCH4 COLORS)
   // =========================
   function buildAnimatedGradient() {
-    bg = p.createGraphics(p.width, p.height);
+    if (!bg) bg = p.createGraphics(10, 10);
+    if (bg.width !== p.width || bg.height !== p.height) bg.resizeCanvas(p.width, p.height);
     bg.pixelDensity(1);
 
     const t = p.millis() * 0.0002;
