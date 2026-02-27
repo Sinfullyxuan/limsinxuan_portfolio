@@ -23,9 +23,17 @@
 </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <title>Document</title>
+    <title>Sin Xuan's Portfolio</title>
 </head>
 <body>
+
+<div id="loader">
+  <div class="loader-content">
+    <img src="images/sx_logo.png" alt="Logo" class="loader-logo">
+    <h1>Entering the Sky...</h1>
+  </div>
+</div>
+
     <div class="homepage-container">
       <!-- Fixed Header/Navigation -->
       <header class="fixed-header">
@@ -389,6 +397,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.classList.add("hidden");
+  });
+</script>
 
 
     <script src="p5js/sketch1.js"></script>

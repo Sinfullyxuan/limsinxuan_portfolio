@@ -1534,4 +1534,95 @@ nav a {
 }
 
 
+/* ======================
+   LOADER STYLE
+====================== */
+
+#loader {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, #090012, #140028);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.loader-logo {
+  width: 100px; /* adjust size */
+  height: auto;
+  opacity: 0;
+  animation: fadeInLogo 1.5s ease forwards, rotateLogo 20s linear infinite;
+}
+
+@keyframes fadeInLogo {
+  to { opacity: 0.8; }
+}
+
+/* Rotation animation */
+@keyframes rotateLogo {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loader-content h1 {
+  font-family: "Cinzel", serif;
+  color: rgb(231, 231, 231);
+  letter-spacing: 0.3rem;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+/* Hidden state */
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media (max-width: 1024px) {
+
+  .loader-logo {
+    width: 80px;
+  }
+
+  .loader-content h1 {
+    font-size: 1.1rem;
+    letter-spacing: 0.2rem;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .loader-content {
+    gap: 1rem;
+  }
+
+  .loader-logo {
+    width: 55px;
+    opacity: 0.6;
+  }
+
+  .loader-content h1 {
+    font-size: 0.9rem;
+    letter-spacing: 0.1rem;
+  }
+
+}
+
+
 
