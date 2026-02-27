@@ -41,6 +41,7 @@ body{
   padding: 1.2rem 1.5rem;
   padding-bottom: 1.5rem;
   min-height: 9rem;
+  position: relative;   /* required for absolute positioning */
 }
 
 .topbar-logo{
@@ -59,6 +60,45 @@ body{
   letter-spacing: 0.12em;
   text-transform: uppercase;
   opacity: 0.9;
+}
+
+.fixed-header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9000;
+  background-color: transparent;
+}
+
+/* back button */
+.topbar-back{
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1rem;   /* 👈 anchor to bottom */
+  z-index: 9500;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  text-decoration: none;
+}
+
+.topbar-back img{
+  width: 22px;      /* your PNG size */
+  height: auto;
+  display: block;
+  opacity: 0.9;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.topbar-back:hover img{
+  transform: scale(1.06);
+  opacity: 1;
 }
 
 /* =========================
@@ -684,6 +724,26 @@ h5.project-title{
   }
 
   .walkthrough{ padding: 2.5rem 0 3rem; }
+
+
+}
+
+
+@media (max-width: 760px){
+
+  .topbar-back{
+    left: auto;      /* cancel left */
+    right: 1rem;   /* push to right edge */
+    bottom: 0.5rem;  /* keep aligned with baseline */
+
+    width: 30px;     /* smaller click area */
+    height: 30px;
+  }
+
+  .topbar-back img{
+    width: 16px;     /* smaller icon */
+  }
+
 }
 
 /* =========================
