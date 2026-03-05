@@ -670,6 +670,53 @@ margin-top: 3rem;
 
 }
 
+@media (max-width: 1024px){
+
+  /* 3-column layout */
+  #page-remembear .planning-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(2.5rem, 1fr));
+    gap: 3rem;
+    justify-content: center;
+  }
+
+  #page-remembear .planning-thumb {
+    aspect-ratio: 4 / 3;  /* optional: nicer proportion on tablet */
+  }
+
+  #page-remembear .planning-thumb img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* ✅ shows entire image */
+  display: block;
+}
+}
+
+@media (max-width: 768px){
+/* 3-column layout */
+#page-remembear .planning-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5rem;
+  align-items: start;
+  margin: 2rem;
+}
+
+/* each block */
+#page-remembear .planning-card {
+  text-align: center; /* makes it look like your ref */
+}
+
+/* image placeholder box */
+#page-remembear .planning-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;   /* square like the screenshot */
+  overflow: contain;
+  margin: 0 auto 1.2rem;
+}
+
+}
+
 #page-font{
   --light:  #ece7e1;
   --ink:    rgb(116, 11, 11);
